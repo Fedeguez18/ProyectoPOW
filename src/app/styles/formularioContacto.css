@@ -1,0 +1,89 @@
+/* Contenedor principal */
+.contacto-container {
+  width: 100%;
+  max-width: 900px; /* Ancho máximo del formulario */
+  margin: 2rem auto;
+  padding: 2rem;
+  background-color: #ffffff;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+}
+
+.contacto-container h2 {
+  text-align: left;
+  margin-bottom: 2rem;
+  font-size: 2rem; /* Tamaño del título "Formulario de Contacto" */
+}
+
+/* Estilos del formulario */
+.contact-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem; /* Espacio entre grupos de campos */
+}
+
+/* Grupo de formulario (label + input) */
+.form-group {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+.form-group label {
+  margin-bottom: 0.5rem;
+  font-weight: 600;
+  font-size: 0.9rem;
+  color: #333;
+}
+
+.form-group input[type="text"],
+.form-group input[type="email"],
+.form-group input[type="tel"],
+.form-group input[type="number"],
+.form-group input[type="date"],
+.form-group select,
+.form-group textarea {
+  width: 100%;
+  padding: 0.75rem;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 1rem;
+  box-sizing: border-box; /* Asegura que el padding no afecte el ancho */
+}
+
+.form-group textarea {
+  resize: vertical; /* Permite redimensionar solo verticalmente */
+  min-height: 100px;
+}
+
+.form-group small,
+.form-hint {
+  font-size: 0.8rem;
+  color: #666;
+  margin-top: 0.25rem;
+}
+
+/* Fila de formulario (para poner campos lado a lado) */
+.form-row {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 1.5rem; /* Espacio entre los campos en la misma fila */
+}
+
+/* Botón de envío */
+.submit-btn {
+  padding: 0.8rem 1.5rem;
+  background-color: #007bff; /* Un color de acento, cámbialo por el de tu museo */
+  color: white;
+  border: none;
+  border-radius: 4px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  align-self: flex-start; /* Alinea el botón a la izquierda */
+}
+
+.submit-btn:hover {
+  background-color: #0056b3;
+}

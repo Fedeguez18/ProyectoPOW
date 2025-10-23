@@ -1,0 +1,85 @@
+.overlay {
+  position: fixed;
+  inset: 0;
+  /* Cambio: Usamos el color de fondo con transparencia */
+  background-color: rgba(244, 241, 236, 0.7); /* RVA de --background */
+  backdrop-filter: blur(10px);
+  z-index: 100;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  animation: fadeIn 0.3s ease-out;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+.closeButton {
+  position: absolute;
+  top: 40px;
+  right: 40px;
+  background: none;
+  border: none;
+  /* Cambio: Color de texto/icono */
+  color: var(--text);
+  cursor: pointer;
+  padding: 8px;
+  border-radius: 50%;
+  transition: transform 0.2s ease, background-color 0.2s ease;
+}
+
+.closeButton:hover {
+  transform: rotate(90deg);
+  /* Cambio: Usamos el color de texto con transparencia */
+  background-color: rgba(46, 43, 37, 0.05); /* RGBA de --text */
+}
+
+/* ... (.searchContainer y .inputWrapper se quedan igual) ... */
+.searchContainer {
+  width: 100%;
+  max-width: 600px;
+  padding: 0 20px;
+}
+
+.inputWrapper {
+  position: relative;
+  width: 100%;
+}
+
+
+.searchIcon {
+  position: absolute;
+  left: 20px;
+  top: 50%;
+  transform: translateY(-50%);
+  /* Cambio: Color de texto secundario */
+  color: var(--textSecond);
+}
+
+.searchInput {
+  width: 100%;
+  padding: 20px 20px 20px 60px;
+  font-size: 1.5rem;
+  font-weight: 300;
+  /* Cambio: Color de texto principal */
+  color: var(--text);
+  background-color: transparent;
+  border: none;
+  /* Cambio: Borde con el color de bordes */
+  border-bottom: 2px solid var(--bordes);
+  outline: none;
+  transition: border-color 0.3s ease;
+}
+
+.searchInput:focus {
+  /* Cambio: Borde con el color de acento */
+  border-bottom-color: var(--acentuar);
+}
+
+.searchInput::placeholder {
+  /* Cambio: Placeholder con texto secundario */
+  color: var(--textSecond);
+}
