@@ -6,7 +6,7 @@ import MapaUbicacion from "./componentes/mapaUbicacion";
 export default function Home() {
   return (
     <main>
-      <ImagenHome imagenSrc="recursos/home.jpg" titulo="Bienvenida"/>
+      <ImagenHome imagenSrc="recursos/home.jpg" titulo="Bienvenida" seccion="inicio"/>
       <MuseoTematicas />
 
       <div className = "tituloSeccion">

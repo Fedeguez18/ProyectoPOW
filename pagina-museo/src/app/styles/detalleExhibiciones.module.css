@@ -1,0 +1,40 @@
+.detalleRoot {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 3rem 1.5rem;
+}
+
+.article {
+  background: var(--superficie);
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.titulo {
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: var(--text);
+  padding: 0 2rem;
+  margin-top: 2rem;
+  margin-bottom: 1.5rem;
+}
+
+.imageWrapper {
+  width: 100%;
+}
+
+.mainImage {
+  width: 100%;
+  height: auto;
+  object-fit: cover;
+}
+
+.content {
+  padding: 2rem;
+}
+
+.descripcionCompleta {
+  font-size: 1.1rem;
+  color: var(--textSecond);
+  line-height: 1.8;
+}

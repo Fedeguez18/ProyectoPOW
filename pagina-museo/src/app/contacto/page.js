@@ -5,7 +5,7 @@ import Formulario from "../componentes/formularioContacto";
 export default function contactoHome() {
   return (
     <main>
-      <ImagenHome imagenSrc="recursos/contacto.jpg" />
+      <ImagenHome imagenSrc="recursos/contacto.jpg" titulo="Contactanos" seccion="contacto"/>
       <Formulario/>
 
       <footer className="footer">

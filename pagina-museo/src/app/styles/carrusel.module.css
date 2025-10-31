@@ -1,12 +1,9 @@
-:root {
-  /* ¡Importante! 
-    Aquí re-definimos los acentos locales para que usen 
-    las variables globales que definimos antes.
-  */
+/*:global(:root) {
+ 
   --accent: var(--acentuar);
   --accent-2: var(--secondary);
   --bg: linear-gradient(135deg, rgba(178, 107, 52, 0.12), rgba(107, 138, 111, 0.08));
-}
+}*/
 
 .wrapper {
   width: 100vw;

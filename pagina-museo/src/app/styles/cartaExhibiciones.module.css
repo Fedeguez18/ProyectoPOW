@@ -1,0 +1,57 @@
+.card {
+  /* Usamos los colores de tu navbar para consistencia */
+  background: var(--superficie);
+  border: 1px solid var(--bordes);
+  border-radius: 12px;
+  overflow: hidden;
+  text-decoration: none;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.04);
+  transition: all 0.22s cubic-bezier(.4,0,.2,1);
+}
+
+.card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+}
+
+.imageWrapper {
+  position: relative;
+  /* Una proporción común para catálogos */
+  aspect-ratio: 16 / 10; 
+  width: 100%;
+}
+
+.content {
+  padding: 1.25rem;
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.title {
+  font-size: 1.2rem;
+  font-weight: 600;
+  /* Usamos el color de texto principal */
+  color: var(--text);
+  margin-bottom: 0.5rem;
+}
+
+.description {
+  font-size: 0.9rem;
+  /* Usamos el color de texto secundario (visto en tu navbar.module.css) */
+  color: var(--textSecond);
+  line-height: 1.6;
+  margin-bottom: 1rem;
+  /* Asegura que el texto no desborde */
+  flex-grow: 1;
+}
+
+.linkText {
+  font-size: 0.9rem;
+  font-weight: 500;
+  /* Usamos el color de acento (visto en tu navbar.module.css) */
+  color: var(--acentuar);
+  align-self: flex-start;
+}
