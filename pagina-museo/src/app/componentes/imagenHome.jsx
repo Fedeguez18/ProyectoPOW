@@ -1,16 +1,70 @@
-import Image from 'next/image';
+'use client';
+import { useState, useEffect } from 'react';
 import styles from '../styles/imagen.module.css';
-import { getImageUrl } from '../utils/config';
+import { API_BASE, getImageUrl } from '../utils/config';
 
-const API_BASE = process.env.NEXT_PUBLIC_API_BASE || 'http://localhost/ProyectoPOW/API_Proyecto';
+export default function ImagenHome({ titulo, seccion }) {
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(false);
+  const [imagenUrl, setImagenUrl] = useState(null);
 
-export default function ImagenHome({ imagenSrc, titulo, seccion }) {
- const src = getImageUrl(imagenSrc);
+  useEffect(() => {
+    const fetchImagen = async () => {
+      setLoading(true);
+      setError(false);
 
-  const imagenBackground = { backgroundImage: `url(${src})` };
-  
+      try {
+        // Mapeo de secciones a categorías de banner
+        const categoria = `banner-${seccion}`;
+        
+        // Hacer fetch a la API buscando por categoría
+        const response = await fetch(
+          `${API_BASE}/endpoints/listar_img.php?categoria=${encodeURIComponent(categoria)}`
+        );
+        
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`);
+        }
+
+        const imagenes = await response.json();
+        
+        // Si encuentra imágenes con esa categoría, usar la primera
+        if (imagenes && imagenes.length > 0) {
+          const url = getImageUrl(imagenes[0].ruta);
+          setImagenUrl(url);
+        } else {
+          // Si no encuentra en la BD, usar imagen de fallback local
+          const fallbackImages = {
+            'inicio': '/recursos/home.jpg',
+            'museo': '/recursos/museo.jpg',
+            'exhibiciones': '/recursos/banner-exhibiciones.jpg',
+            'contacto': '/recursos/contacto.jpg'
+          };
+          setImagenUrl(fallbackImages[seccion] || '/recursos/placeholder.jpg');
+        }
+      } catch (error) {
+        console.error('Error al cargar la imagen del banner:', error);
+        setError(true);
+        
+        // Fallback a imágenes locales en caso de error
+        const fallbackImages = {
+          'inicio': '/recursos/home.jpg',
+          'museo': '/recursos/museo.jpg',
+          'exhibiciones': '/recursos/banner-exhibiciones.jpg',
+          'contacto': '/recursos/contacto.jpg'
+        };
+        setImagenUrl(fallbackImages[seccion] || '/recursos/placeholder.jpg');
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    if (seccion) {
+      fetchImagen();
+    }
+  }, [seccion]);
+
   const getSeccionTexto = (seccion) => {
-    // ... (esta función no cambia)
     switch(seccion) {
       case 'inicio':
         return '¡Bienvenidos al Museo de Ciencias Naturales! Explora y descubre el fascinante mundo que nos rodea.';
@@ -25,8 +79,21 @@ export default function ImagenHome({ imagenSrc, titulo, seccion }) {
     }
   };
 
+  
+  const imagenBackground = imagenUrl ? { backgroundImage: `url(${imagenUrl})` } : {};
+
   return (
     <div className={styles.heroRoot} style={imagenBackground}>
+      {loading && (
+        <div className={styles.loadingOverlay}>
+          <p>Cargando imagen...</p>
+        </div>
+      )}
+      {error && !loading && (
+        <div className={styles.errorOverlay}>
+          <p>⚠️ Error al cargar imagen (usando fallback)</p>
+        </div>
+      )}
       <div className={styles.heroContent}>
         <h1>{titulo}</h1>
         <div className={styles.sectionText}>{getSeccionTexto(seccion)}</div>

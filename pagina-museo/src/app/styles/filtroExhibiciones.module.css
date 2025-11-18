@@ -1,0 +1,141 @@
+.filtroContainer {
+  padding: 2rem;
+  background: #f9fafb;
+  border-radius: 8px;
+  margin-bottom: 2rem;
+}
+
+.busquedaWrapper {
+  position: relative;
+  margin-bottom: 1.5rem;
+}
+
+.busquedaInput {
+  width: 100%;
+  padding: 0.75rem 2.5rem 0.75rem 1rem;
+  font-size: 1rem;
+  border: 2px solid #e5e7eb;
+  border-radius: 8px;
+  transition: border-color 0.3s;
+}
+
+.busquedaInput:focus {
+  outline: none;
+  border-color: #3b82f6;
+}
+
+.limpiarBtn {
+  position: absolute;
+  right: 0.75rem;
+  top: 50%;
+  transform: translateY(-50%);
+  background: #e5e7eb;
+  border: none;
+  border-radius: 50%;
+  width: 24px;
+  height: 24px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.3s;
+}
+
+.limpiarBtn:hover {
+  background: #d1d5db;
+}
+
+.filtrosRow {
+  display: flex;
+  gap: 1.5rem;
+  flex-wrap: wrap;
+  align-items: flex-end;
+}
+
+.filtroGrupo {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  flex: 1;
+  min-width: 200px;
+}
+
+.filtroLabel {
+  font-weight: 600;
+  font-size: 0.9rem;
+  color: #374151;
+}
+
+.categorias {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+
+.categoriaBtn {
+  padding: 0.5rem 1rem;
+  background: white;
+  border: 2px solid #e5e7eb;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.3s;
+  font-size: 0.9rem;
+  font-weight: 500;
+}
+
+.categoriaBtn:hover {
+  border-color: #3b82f6;
+  color: #3b82f6;
+}
+
+.categoriaBtn.active {
+  background: #3b82f6;
+  color: white;
+  border-color: #3b82f6;
+}
+
+.ordenSelect {
+  padding: 0.5rem 1rem;
+  font-size: 0.9rem;
+  border: 2px solid #e5e7eb;
+  border-radius: 6px;
+  background: white;
+  cursor: pointer;
+  transition: border-color 0.3s;
+}
+
+.ordenSelect:focus {
+  outline: none;
+  border-color: #3b82f6;
+}
+
+.limpiarTodoBtn {
+  padding: 0.5rem 1.5rem;
+  background: #ef4444;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: background 0.3s;
+  white-space: nowrap;
+}
+
+.limpiarTodoBtn:hover {
+  background: #dc2626;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .filtrosRow {
+    flex-direction: column;
+  }
+
+  .filtroGrupo {
+    width: 100%;
+  }
+
+  .limpiarTodoBtn {
+    width: 100%;
+  }
+}
