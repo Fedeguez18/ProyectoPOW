@@ -7,7 +7,7 @@ import { Search } from 'lucide-react';
 import styles from '../styles/navbar.module.css';
 import Busqueda from './busqueda'; // 1. Importamos el nuevo componente
 
-const API_BASE = process.env.NEXT_PUBLIC_API_BASE || 'http://localhost/API_Proyecto';
+const API_BASE = process.env.NEXT_PUBLIC_API_BASE || 'http://localhost/ProyectoPOW/API_Proyecto';
 // Construir la URL del logo
 const logoSrc = `${API_BASE}/uploads/logo.png`;
 
@@ -33,7 +33,7 @@ export default function Navbar() {
             <Link href="/" className="flex items-center gap-3">
               {/* Usamos <img> para evitar restricciones de next/image con URLs externas */}
               {(() => {
-                const API_BASE = process.env.NEXT_PUBLIC_API_BASE || 'http://localhost/API_Proyecto';
+                const API_BASE = process.env.NEXT_PUBLIC_API_BASE || 'http://localhost/ProyectoPOW/API_Proyecto';
                 const logoSrc = API_BASE ? `${API_BASE}/uploads/logo.png` : '/recursos/logo.png';
                 return (
                   // eslint-disable-next-line @next/next/no-img-element

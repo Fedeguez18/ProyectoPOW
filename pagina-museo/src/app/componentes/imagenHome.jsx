@@ -1,12 +1,11 @@
 import Image from 'next/image';
 import styles from '../styles/imagen.module.css';
+import { getImageUrl } from '../utils/config';
 
-const API_BASE = process.env.NEXT_PUBLIC_API_BASE || 'http://localhost/API_Proyecto';
+const API_BASE = process.env.NEXT_PUBLIC_API_BASE || 'http://localhost/ProyectoPOW/API_Proyecto';
 
 export default function ImagenHome({ imagenSrc, titulo, seccion }) {
-  const src = imagenSrc 
-    ? `${API_BASE}/${imagenSrc}` 
-    : '/recursos/banner-exhibiciones.jpg'; // Asegúrate que este placeholder exista en /public/recursos
+ const src = getImageUrl(imagenSrc);
 
   const imagenBackground = { backgroundImage: `url(${src})` };
   

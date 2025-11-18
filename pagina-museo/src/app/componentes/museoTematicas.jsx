@@ -1,29 +1,11 @@
 'use client'
-
 import React, { useEffect, useState } from "react";
 import styles from "../styles/museoTematicas.module.css";
 import TematicaCarta from './tamaticaCarta';
-
-const API_BASE = process.env.NEXT_PUBLIC_API_BASE || 'http://localhost/API_Proyecto';
-
-function getPublicUrl(item) {
-  const ruta = item?.ruta || item?.nombre_archivo || item?.imagen;
-  
-  // Si no hay ruta, usa un placeholder (asegúrate que exista en /public/recursos)
-  if (!ruta) return '/recursos/placeholder.jpg';
-  // Si por alguna razón ya es una URL completa
-  if (ruta.startsWith('http')) return ruta;
-
-  // Construye la URL final: http://localhost/API_Proyecto/uploads/imagen.jpg
-  return `${API_BASE}/${ruta}`;
-}
+import { API_BASE, getImageUrl } from '../utils/config'; // Usamos la config centralizada
 
 function slugify(text) {
-  return String(text || '')
-    .toLowerCase()
-    .replace(/\s+/g, '-')
-    .replace(/[^a-z0-9-]/g, '')
-    .replace(/-+/g, '-');
+  return String(text || '').toLowerCase().replace(/\s+/g, '-').replace(/[^a-z0-9-]/g, '');
 }
 
 const DEFAULT_COLORS = {
@@ -38,41 +20,36 @@ export default function MuseoTematicas() {
     const [tematicas, setTematicas] = useState([]);
 
     useEffect(() => {
-        let mounted = true;
         async function fetchData(){
             try{
-                // CORRECCIÓN: Llama a tu endpoint en la subcarpeta 'endpoints'
+                // Usamos API_BASE importado
                 const res = await fetch(`${API_BASE}/endpoints/listar_img.php`);
-                if (!res.ok) {
-                  console.error("Error al cargar las temáticas:", res.statusText);
-                  return;
-                }
-                const items = await res.json();
+                if (!res.ok) return;
                 
-                // agrupar por categoria
+                const items = await res.json();
                 const groups = {};
+                
                 items.forEach(it => {
                     const cat = it.categoria || 'Generales';
                     groups[cat] = groups[cat] || [];
-                    // Aquí usamos la función corregida
-                    groups[cat].push(getPublicUrl(it)); 
+                    // Usamos getImageUrl importado
+                    groups[cat].push(getImageUrl(it.ruta || it.nombre_archivo)); 
                 });
 
                 const built = Object.keys(groups).map(cat => ({
                     id: slugify(cat),
                     titulo: cat,
-                    images: groups[cat].slice(0, 4), // Toma hasta 4 imágenes por categoría
+                    images: groups[cat].slice(0, 4),
                     link: `/tematicas/${slugify(cat)}`,
                     color: DEFAULT_COLORS[cat] || '#e5e7eb'
                 }));
 
-                if(mounted) setTematicas(built);
+                setTematicas(built);
             }catch(e){
-                console.error("Error en fetch de temáticas:", e);
+                console.error(e);
             }
         }
         fetchData();
-        return () => { mounted = false };
     }, []);
 
     return (
@@ -80,10 +57,7 @@ export default function MuseoTematicas() {
             <h2 className={styles.tituloSeccion}>Temáticas del Museo</h2>
             <div className={styles.gridContainer}>
                 {tematicas.map((tematica) => (
-                    <TematicaCarta
-                        key={tematica.id}
-                        data={tematica}
-                    />
+                    <TematicaCarta key={tematica.id} data={tematica} />
                 ))}
             </div>
         </section>

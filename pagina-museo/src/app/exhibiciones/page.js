@@ -2,7 +2,7 @@ import CartaEXhibiciones from '../componentes/cartaExhibicion';
 import ImagenHome from '../componentes/imagenHome';
 import styles from '../styles/museoTematicas.module.css';
 
-const API_BASE = process.env.NEXT_PUBLIC_API_BASE || 'http://localhost/API_Proyecto';
+const API_BASE = process.env.NEXT_PUBLIC_API_BASE || 'http://localhost/ProyectoPOW/API_Proyecto';
 
 async function fetchExhibiciones() {
   try {

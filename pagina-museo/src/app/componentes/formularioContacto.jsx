@@ -111,7 +111,7 @@ function CampoVisitaEscolar() {
   );
 }
 
-const API_BASE = process.env.NEXT_PUBLIC_API_BASE || 'http://localhost/API_Proyecto';
+const API_BASE = process.env.NEXT_PUBLIC_API_BASE || 'http://localhost/ProyectoPOW/API_Proyecto';
 const CONTACT_ENDPOINT = `${API_BASE}/endpoints/enviar_contacto.php`;
 
 export default function Formulario(){

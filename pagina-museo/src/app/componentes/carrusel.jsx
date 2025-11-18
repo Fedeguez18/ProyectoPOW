@@ -14,7 +14,7 @@ import 'swiper/css/pagination';
 import 'swiper/css/effect-fade';
 
 // 2. Definir la URL de tu API
-const API_BASE = process.env.NEXT_PUBLIC_API_BASE || 'http://localhost/API_Proyecto';
+const API_BASE = process.env.NEXT_PUBLIC_API_BASE || 'http://localhost/ProyectoPOW/API_Proyecto';
 // Llama a la categoría 'carrusel' (¡Debes crearla en tu BD!)
 const API_URL = `${API_BASE}/endpoints/listar_img.php?categoria=carrusel`;
 

@@ -1,7 +1,7 @@
 import Image from "next/image";
 import styles from "../../styles/detalleExhibicion.module.css";
 
-const API_BASE = process.env.NEXT_PUBLIC_API_BASE || 'http://localhost/API_Proyecto';
+const API_BASE = process.env.NEXT_PUBLIC_API_BASE || 'http://localhost/ProyectoPOW/API_Proyecto';
 
 async function fetchExhibiciones() {
   try {
@@ -15,7 +15,7 @@ async function fetchExhibiciones() {
 }
 
 function getPublicUrl(item) {
-  const base = process.env.NEXT_PUBLIC_API_BASE || 'http://localhost/API_Proyecto';
+  const base = process.env.NEXT_PUBLIC_API_BASE || 'http://localhost/ProyectoPOW/API_Proyecto';
   let ruta = item.ruta || item.imagen || item.nombre_archivo || '';
   if (!ruta) return '';
   if (/^https?:\/\//i.test(ruta)) return ruta;
