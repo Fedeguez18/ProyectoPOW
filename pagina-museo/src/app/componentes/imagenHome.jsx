@@ -1,20 +1,26 @@
 import Image from 'next/image';
 import styles from '../styles/imagen.module.css';
 
-// Componente simplificado: siempre muestra una imagen fija desde `public`
+const API_BASE = process.env.NEXT_PUBLIC_API_BASE || 'http://localhost/API_Proyecto';
+
 export default function ImagenHome({ imagenSrc, titulo, seccion }) {
-  const imagenBackground = { backgroundImage: `url(${imagenSrc})`};
+  const src = imagenSrc 
+    ? `${API_BASE}/${imagenSrc}` 
+    : '/recursos/banner-exhibiciones.jpg'; // Asegúrate que este placeholder exista en /public/recursos
+
+  const imagenBackground = { backgroundImage: `url(${src})` };
   
   const getSeccionTexto = (seccion) => {
+    // ... (esta función no cambia)
     switch(seccion) {
       case 'inicio':
-        return <><p>¡Bienvenidos al Museo de Ciencias Naturales!</p><p>Explora y descubre el fascinante mundo que nos rodea</p></>;
+        return '¡Bienvenidos al Museo de Ciencias Naturales! Explora y descubre el fascinante mundo que nos rodea.';
       case 'museo':
-        return <><p>Sumérgete en el maravilloso universo de las ciencias naturales, donde cada pieza cuenta una historia única</p></>;
+        return 'Sumérgete en el maravilloso universo de las ciencias naturales, donde cada pieza cuenta una historia única.';
       case 'exhibiciones':
-        return <><p>Descubre nuestras exhibiciones y déjate llevar por la curiosidad científica.</p></>;
+        return 'Descubre nuestras exhibiciones y déjate llevar por la curiosidad científica.';
       case 'contacto':
-        return <><p>Contacta con nuestro equipo para más información</p></>;
+        return 'Contacta con nuestro equipo para más información.';
       default:
         return '';
     }
@@ -24,7 +30,7 @@ export default function ImagenHome({ imagenSrc, titulo, seccion }) {
     <div className={styles.heroRoot} style={imagenBackground}>
       <div className={styles.heroContent}>
         <h1>{titulo}</h1>
-        <p className={styles.sectionText}>{getSeccionTexto(seccion)}</p>
+        <div className={styles.sectionText}>{getSeccionTexto(seccion)}</div>
       </div>
     </div>
   );

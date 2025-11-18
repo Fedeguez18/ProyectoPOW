@@ -5,11 +5,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { Search } from 'lucide-react';
 import styles from '../styles/navbar.module.css';
-import Busqueda from './busqueda'; // 1. Importamos el nuevo componente
-
-const API_BASE = process.env.NEXT_PUBLIC_API_BASE || 'http://localhost/API_Proyecto';
-// Construir la URL del logo
-const logoSrc = `${API_BASE}/uploads/logo.png`;
+import Busqueda from '../../pagina-museo/src/app/componentes/busqueda'; // 1. Importamos el nuevo componente
 
 export default function Navbar() {
   const [searchOpen, setSearchOpen] = useState(false); // Estado para controlar el overlay

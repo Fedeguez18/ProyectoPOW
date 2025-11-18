@@ -111,19 +111,49 @@ function CampoVisitaEscolar() {
   );
 }
 
+const API_BASE = process.env.NEXT_PUBLIC_API_BASE || 'http://localhost/API_Proyecto';
+const CONTACT_ENDPOINT = `${API_BASE}/endpoints/enviar_contacto.php`;
+
 export default function Formulario(){
     const [tipoF, setTipoF]= useState('contacto');
+    // Nuevo estado para manejar el envío
+    const [formStatus, setFormStatus] = useState({ sending: false, message: '', error: false });
 
     const handleTipoChange = (e) => {
         setTipoF(e.target.value);
     };  
 
-    const handleSubmit = (e) => {
+    // CORRECCIÓN: Implementar el envío a la API
+    const handleSubmit = async (e) => {
         e.preventDefault();
+        setFormStatus({ sending: true, message: 'Enviando...', error: false });
+
         const formData = new FormData(e.target);
         const data = Object.fromEntries(formData.entries());
-        console.log("Datos del formulario:", data);
-        alert("Formulario enviado. Gracias por contactarnos.");
+        
+        try {
+            const response = await fetch(CONTACT_ENDPOINT, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(data),
+            });
+
+            const result = await response.json();
+
+            if (response.ok && result.success) {
+                setFormStatus({ sending: false, message: result.mensaje, error: false });
+                e.target.reset(); // Limpiar formulario
+                setTipoF('contacto'); // Resetear el tipo
+            } else {
+                throw new Error(result.error || 'Error desconocido del servidor');
+            }
+
+        } catch (error) {
+            console.error("Error al enviar formulario:", error);
+            setFormStatus({ sending: false, message: `Error: ${error.message}`, error: true });
+        }
     };
 
     return (

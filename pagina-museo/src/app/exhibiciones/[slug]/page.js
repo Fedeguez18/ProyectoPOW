@@ -1,17 +1,38 @@
-import { exhibicionesData } from "../../data/exhibicionesData";
 import Image from "next/image";
 import styles from "../../styles/detalleExhibicion.module.css";
 
-// Función para encontrar el objeto por su ID (slug)
-function getExhibicion(slug) {
-  const item = exhibicionesData.find((ex) => ex.id === slug);
-  return item;
+const API_BASE = process.env.NEXT_PUBLIC_API_BASE || 'http://localhost/API_Proyecto';
+
+async function fetchExhibiciones() {
+  try {
+    const res = await fetch(`${API_BASE}/endpoints/listar_img.php`, { cache: 'no-store' });
+    if (!res.ok) return [];
+    return await res.json();
+  } catch (e) {
+    console.error('Error fetching exhibiciones', e);
+    return [];
+  }
+}
+
+function getPublicUrl(item) {
+  const base = process.env.NEXT_PUBLIC_API_BASE || 'http://localhost/API_Proyecto';
+  let ruta = item.ruta || item.imagen || item.nombre_archivo || '';
+  if (!ruta) return '';
+  if (/^https?:\/\//i.test(ruta)) return ruta;
+  if (ruta.startsWith('/')) {
+    if (ruta.includes('/uploads/')) return ruta;
+    return `${base}/${ruta.replace(/^\/+/, '')}`;
+  }
+  ruta = ruta.replace(/^(\.\.\/)+/, '');
+  ruta = ruta.replace(/^\/+/, '');
+  return `${base}/${ruta}`;
 }
 
 // El componente de la página recibe `params` que contiene el `slug` de la URL
-export default function PaginaDetalleExhibicion({ params }) {
+export default async function PaginaDetalleExhibicion({ params }) {
   const { slug } = params;
-  const item = getExhibicion(slug);
+  const all = await fetchExhibiciones();
+  const item = all.find((ex) => ex.id === slug || ex.nombre_archivo === slug);
 
   // Fallback por si no se encuentra el item
   if (!item) {
