@@ -1,0 +1,200 @@
+/* ===========================================================
+   AESTHETIC VARIABLES — SOLO PARA ESTE COMPONENTE
+   (No globales, esto es válido en CSS Modules)
+   =========================================================== */
+.hmRoot {
+  --card-bg: rgba(255, 255, 255, 0.58);
+  --glass-blur: blur(18px);
+  --border-soft: rgba(255, 255, 255, 0.35);
+  --shadow-soft: 0 12px 35px rgba(0, 0, 0, 0.12);
+  --primary: #d69bb6;
+  --primary-soft: rgba(214, 155, 182, 0.25);
+  --accent: #a0c3d9;
+  --green: #6ed4b3;
+  --red: #ff6f7d;
+  --text-dark: #2f2c2a;
+}
+
+/* ===========================================================
+   FLOTANTE
+   =========================================================== */
+.floating {
+  position: fixed;
+  right: 1.4rem;
+  bottom: 1.4rem;
+  z-index: 9999;
+  width: 340px;
+  max-width: calc(100% - 2rem);
+  transition: all 0.28s ease;
+}
+
+.openFloating {
+  transform: translateY(0);
+  opacity: 1;
+}
+
+.minimized {
+  width: auto !important;
+}
+
+/* ===========================================================
+   CARD AESTHETIC
+   =========================================================== */
+.card {
+  background: var(--card-bg);
+  backdrop-filter: blur(18px) saturate(180%);
+  border-radius: 22px;
+  padding: 1.5rem 1.6rem;
+  border: 1.5px solid var(--border-soft);
+  box-shadow: var(--shadow-soft);
+  animation: fadeIn 0.35s ease;
+  position: relative;
+}
+
+/* SHINE BAR */
+.card::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 70%;
+  height: 4px;
+  background: linear-gradient(90deg, var(--primary), var(--accent));
+  border-radius: 0 0 6px 6px;
+  opacity: 0.9;
+}
+
+/* ===========================================================
+   CLOSE BUTTON
+   =========================================================== */
+.closeButton {
+  position: absolute;
+  top: 10px;
+  right: 12px;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  border: 1px solid var(--border-soft);
+  background: rgba(255, 255, 255, 0.5);
+  backdrop-filter: var(--glass-blur);
+  cursor: pointer;
+  font-size: 17px;
+  font-weight: bold;
+  color: #777;
+  transition: all 0.2s ease;
+}
+
+.closeButton:hover {
+  background: rgba(255, 255, 255, 0.85);
+  color: var(--text-dark);
+}
+
+/* ===========================================================
+   TITULO
+   =========================================================== */
+.title {
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: var(--text-dark);
+  display: flex;
+  align-items: center;
+  gap: 0.55rem;
+  margin-bottom: 1rem;
+}
+
+/* ===========================================================
+   ESTADO
+   =========================================================== */
+.status {
+  font-size: 1rem;
+  font-weight: 700;
+  margin-bottom: 0.8rem;
+}
+
+.statusOpen {
+  color: var(--green);
+}
+
+.statusClosed {
+  color: var(--red);
+}
+
+/* ===========================================================
+   COUNTDOWN
+   =========================================================== */
+.countdown {
+  background: var(--primary-soft);
+  padding: 0.6rem 1rem;
+  border-radius: 12px;
+  font-size: 0.92rem;
+  font-weight: 600;
+  border: 1px solid rgba(214, 155, 182, 0.35);
+  color: #73485d;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 1.2rem;
+}
+
+/* ===========================================================
+   HORARIOS
+   =========================================================== */
+.horarios {
+  display: flex;
+  flex-direction: column;
+  gap: 0.95rem;
+}
+
+.horarioItem {
+  background: rgba(255, 255, 255, 0.45);
+  padding: 0.75rem 1rem;
+  border-radius: 14px;
+  border: 1px solid var(--border-soft);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  transition: all 0.22s ease;
+  font-weight: 500;
+}
+
+.horarioItem:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 18px rgba(0,0,0,0.06);
+}
+
+.cerrado {
+  opacity: 0.55;
+}
+
+/* ===========================================================
+   MINIMIZED TAB
+   =========================================================== */
+.tabButton {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 12px 16px;
+  background: rgba(255, 255, 255, 0.75);
+  border: 1.5px solid var(--border-soft);
+  border-radius: 18px;
+  font-weight: 700;
+  cursor: pointer;
+  font-size: 0.9rem;
+  backdrop-filter: blur(10px);
+  box-shadow: var(--shadow-soft);
+  transition: all 0.25s ease;
+}
+
+.tabButton:hover {
+  transform: translateY(-3px);
+  background: rgba(255, 255, 255, 0.9);
+}
+
+/* ===========================================================
+   ANIMATIONS
+   =========================================================== */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(12px); }
+  to { opacity: 1; transform: translateY(0); }
+}
