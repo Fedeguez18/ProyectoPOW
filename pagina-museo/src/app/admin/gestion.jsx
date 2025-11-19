@@ -134,7 +134,7 @@ const ImagenesAdmin = () => {
             imagen: null,
         });
 
-        setPreview(`http://localhost/App/ProyectoPOW/API_Proyecto/uploads/${img.ruta}`);
+        setPreview(`http://localhost/App/ProyectoPOW/API_Proyecto/${img.ruta}`);
     };
 
     // ────────────────────────────────────────────
@@ -292,7 +292,7 @@ const ImagenesAdmin = () => {
                             <td>{img.id}</td>
                             <td>
                                 <img
-                                    src={`http://localhost/App/ProyectoPOW/API_Proyecto/uploads/${img.ruta}`}
+                                    src={`http://localhost/App/ProyectoPOW/API_Proyecto/${img.ruta}`}
                                     alt={img.titulo}
                                     width="80"
                                 />

@@ -41,7 +41,7 @@ export default function Navbar() {
             <Link href="/" className="flex items-center gap-3">
               {/* Usamos <img> para evitar restricciones de next/image con URLs externas */}
               {(() => {
-                const API_BASE = process.env.NEXT_PUBLIC_API_BASE || 'http://localhost/ProyectoPOW/API_Proyecto';
+                const API_BASE = process.env.NEXT_PUBLIC_API_BASE || 'http://localhost/App/ProyectoPOW/API_Proyecto';
                 const logoSrc = API_BASE ? `${API_BASE}/uploads/logo.png` : '/recursos/logo.png';
                 return (
                   // eslint-disable-next-line @next/next/no-img-element

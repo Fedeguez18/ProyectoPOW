@@ -12,7 +12,7 @@ import 'swiper/css/navigation';
 import 'swiper/css/pagination';
 import 'swiper/css/effect-fade';
 
-const API_BASE = process.env.NEXT_PUBLIC_API_BASE || 'http://localhost/ProyectoPOW/API_Proyecto';
+const API_BASE = process.env.NEXT_PUBLIC_API_BASE || 'http://localhost/App/ProyectoPOW/API_Proyecto';
 const API_URL = `${API_BASE}/endpoints/listar_img.php?categoria=carrusel`;
 
 export default function Carrusel() {

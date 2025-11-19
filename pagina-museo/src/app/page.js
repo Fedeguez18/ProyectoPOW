@@ -17,7 +17,7 @@ export default function Home() {
 
   return (
     <main>
-      <ImagenHome imagenSrc="recursos/home.jpg" titulo="Bienvenida" seccion="inicio"/>
+      <ImagenHome titulo="Bienvenida" seccion="inicio"/>
 
       {/* 🔥 MOSTRAR BOTÓN SOLO SI ES ADMIN */}
       {logueado && usuario.rol === "admin" && (

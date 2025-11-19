@@ -5,7 +5,7 @@ import estilobusqueda from '../styles/estilobusqueda.module.css';
 import Link from 'next/link';
 
 // URL de tu API
-const API_BASE = process.env.NEXT_PUBLIC_API_BASE || 'http://localhost/ProyectoPOW/API_Proyecto';
+const API_BASE = process.env.NEXT_PUBLIC_API_BASE || 'http://localhost/App/ProyectoPOW/API_Proyecto';
 
 export default function Busqueda({ isOpen, onClose }) {
   const [query, setQuery] = useState('');

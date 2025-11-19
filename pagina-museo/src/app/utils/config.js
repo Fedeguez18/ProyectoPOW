@@ -5,7 +5,7 @@ const isProd = process.env.NODE_ENV === 'production';
 // Si tu carpeta en Laragon es 'www/API_Proyecto', usa 'http://localhost/API_Proyecto'
 // Si tu carpeta es 'www/ProyectoPOW/API_Proyecto', usa 'http://localhost/ProyectoPOW/API_Proyecto'
 
-export const API_BASE = process.env.NEXT_PUBLIC_API_BASE || 'http://localhost/ProyectoPOW/API_Proyecto';
+export const API_BASE = process.env.NEXT_PUBLIC_API_BASE || 'http://localhost/App/ProyectoPOW/API_Proyecto';
 
 /**
  * Función auxiliar para generar URLs de imágenes completas

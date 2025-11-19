@@ -2,7 +2,7 @@
 import { useState } from "react";
 import '../styles/formularioContacto.css';
 
-const API_BASE = process.env.NEXT_PUBLIC_API_BASE || 'http://localhost/ProyectoPOW/API_Proyecto';
+const API_BASE = process.env.NEXT_PUBLIC_API_BASE || 'http://localhost/App/ProyectoPOW/API_Proyecto';
 
 const ENDPOINTS = {
   contacto: `${API_BASE}/endpoints/cargarContacto.php`,
