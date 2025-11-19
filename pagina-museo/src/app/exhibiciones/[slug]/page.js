@@ -1,5 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
+import ComentarioForm from "../../componentes/ComentarioForm";
+import ComentariosList from "../../componentes/ComentariosList";
 import { getImageUrl } from '../../utils/config';
 
 const API_BASE = process.env.NEXT_PUBLIC_API_BASE || 'http://localhost/ProyectoPOW/API_Proyecto';
@@ -123,6 +125,8 @@ export default async function PaginaDetalleExhibicion({ params }) {
             </div>
           )}
         </div>
+        {/*<ComentarioForm imagenId={item.id} user={usuarioActual} />*/}
+        <ComentariosList imagenId={item.id} />
       </article>
 
       <footer style={{ marginTop: '3rem', paddingTop: '2rem', borderTop: '1px solid #e5e7eb', textAlign: 'center' }}>
