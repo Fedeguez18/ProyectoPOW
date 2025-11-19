@@ -1,21 +1,20 @@
 <?php
 require_once "../config/database.php";
-
-// --- INICIO DE CORRECCIÓN: Encabezados CORS ---
 header("Access-Control-Allow-Origin: *");
-header("Access-Control-Allow-Methods: POST, OPTIONS");
-header("Access-Control-Allow-Headers: Content-Type");
-header("Content-Type: application/json; charset=UTF-8");
+header("Access-Control-Allow-Headers: *");
 
-if ($_SERVER['REQUEST_METHOD'] == 'OPTIONS') {
-    exit(0);
+header("Access-Control-Allow-Methods: GET, POST, OPTIONS");
+if($_SERVER["REQUEST_METHOD"] === "OPTIONS" ){
+    http_response_code(200);
+    echo json_encode(["error" => "OK"]);
+    exit;
 }
 
 // Verificamos método
-if ($_SERVER["REQUEST_METHOD"] !== "POST") {
+/*if ($_SERVER["REQUEST_METHOD"] !== "POST") {
     echo json_encode(["error" => "Método no permitido"]);
     exit;
-}
+}*/
 
 // Si viene como form-data (con archivo)
 if (isset($_FILES['imagen'])) {
@@ -93,3 +92,4 @@ if ($input) {
 } else {
     echo json_encode(["error" => "No se recibió ninguna imagen ni datos JSON válidos"]);
 }
+?>

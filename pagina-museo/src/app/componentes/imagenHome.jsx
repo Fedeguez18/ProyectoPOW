@@ -96,7 +96,9 @@ export default function ImagenHome({ titulo, seccion }) {
       )}
       <div className={styles.heroContent}>
         <h1>{titulo}</h1>
-        <div className={styles.sectionText}>{getSeccionTexto(seccion)}</div>
+        <div className={styles.sectionText}>
+          {getSeccionTexto(seccion)}
+        </div>
       </div>
     </div>
   );

@@ -3,10 +3,10 @@ import { useState, useEffect, useCallback } from 'react';
 import { useSearchParams } from 'next/navigation';
 import CartaExhibiciones from '../componentes/cartaExhibicion';
 import ImagenHome from '../componentes/imagenHome';
-import FiltroExhibiciones from '../componentes/FiltroExhibiciones';
+import FiltroExhibiciones from '../componentes/filtroExhibiciones';
 import styles from '../styles/museoTematicas.module.css';
 
-const API_BASE = process.env.NEXT_PUBLIC_API_BASE || 'http://localhost/ProyectoPOW/API_Proyecto';
+const API_BASE = process.env.NEXT_PUBLIC_API_BASE || 'http://localhost/App/ProyectoPOW/API_Proyecto';
 
 export default function PaginaExhibiciones() {
   const searchParams = useSearchParams();
@@ -33,7 +33,8 @@ export default function PaginaExhibiciones() {
   const fetchExhibiciones = async () => {
     try {
       setLoading(true);
-      const res = await fetch(`${API_BASE}/endpoints/listar_img.php`, { 
+      // ✅ CORREGIDO: Paréntesis después de fetch
+      const res = await fetch(`${API_BASE}/endpoints/listar_img.php`, {
         cache: 'no-store',
         headers: {
           'Accept': 'application/json',
@@ -47,7 +48,7 @@ export default function PaginaExhibiciones() {
       
       const json = await res.json();
       
-      // ⚡ FILTRAR: Excluir imágenes con categoría "banner-*"
+      // Filtrar: Excluir imágenes con categoría "banner-*"
       const exhibiciones = Array.isArray(json) 
         ? json.filter(item => {
             const cat = item.categoria || '';
@@ -57,7 +58,7 @@ export default function PaginaExhibiciones() {
       
       setExhibicionesOriginales(exhibiciones);
       
-      // Extraer categorías únicas (ya filtradas)
+      // Extraer categorías únicas
       const categoriasUnicas = [...new Set(
         exhibiciones
           .map(item => item.categoria)
@@ -154,7 +155,7 @@ export default function PaginaExhibiciones() {
             background: '#eff6ff', 
             padding: '1rem',
             borderRadius: '8px', 
-            marginTop: '0.75rem', // separación añadida respecto al título
+            marginTop: '0.75rem',
             marginBottom: '1rem',
             border: '2px solid #5f8f43b0'
           }}>
@@ -204,8 +205,8 @@ export default function PaginaExhibiciones() {
                     cursor: 'pointer',
                     transition: 'background 0.3s'
                   }}
-                  onMouseOver={(e) => e.target.style.background = '#2563eb'}
-                  onMouseOut={(e) => e.target.style.background = '#3b82f6'}
+                  onMouseOver={(e) => e.target.style.background = '#4a7335'}
+                  onMouseOut={(e) => e.target.style.background = '#5f8f43ff'}
                 >
                   Ver más ({exhibicionesFiltradas.length - cantidadMostrada} restantes)
                 </button>

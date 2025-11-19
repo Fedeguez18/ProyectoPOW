@@ -3,33 +3,40 @@ import { useState, useEffect } from 'react';
 import styles from '../styles/horarioMuseo.module.css';
 
 export default function HorarioMuseo() {
-    // persistir minimizado en localStorage
-    const [minimized, setMinimized] = useState(() => {
-        if (typeof window === 'undefined') return false;
-        try {
-            return localStorage.getItem('horario_minimized') === 'true';
-        } catch {
-            return false;
-        }
-    });
+    // ✅ Inicializar siempre como false para evitar hydration mismatch
+    const [minimized, setMinimized] = useState(false);
+    const [isClient, setIsClient] = useState(false);
 
     const [estado, setEstado] = useState({ abierto: false, mensaje: '', proximaApertura: null });
     const [cuentaRegresiva, setCuentaRegresiva] = useState('');
+
+    // ✅ Cargar el estado desde localStorage solo en el cliente
+    useEffect(() => {
+        setIsClient(true);
+        try {
+            const saved = localStorage.getItem('horario_minimized');
+            if (saved === 'true') {
+                setMinimized(true);
+            }
+        } catch {}
+    }, []);
 
     // toggle minimizar / restaurar (y persistir)
     const handleMinimize = () => setMinimized(true);
     const handleRestore = () => setMinimized(false);
 
     useEffect(() => {
-        try { localStorage.setItem('horario_minimized', minimized ? 'true' : 'false'); } catch { }
-
-    }, [minimized]);
+        if (!isClient) return;
+        try { 
+            localStorage.setItem('horario_minimized', minimized ? 'true' : 'false'); 
+        } catch {}
+    }, [minimized, isClient]);
 
     // calculadora de estado + cuenta regresiva; ejecutada cada 1s
     useEffect(() => {
         function calcularYActualizar() {
             const ahora = new Date();
-            const diaSemana = ahora.getDay(); // 0 = Domingo, 6 = Sábado
+            const diaSemana = ahora.getDay();
             const horaActual = ahora.getHours();
             const minutoActual = ahora.getMinutes();
             const horaEnMinutos = horaActual * 60 + minutoActual;
@@ -45,7 +52,6 @@ export default function HorarioMuseo() {
                     proximaApertura: proximoLunes
                 });
 
-                // cuenta regresiva
                 const diff = proximoLunes - ahora;
                 setCuentaRegresiva(formatDiff(diff, false));
                 return;
@@ -78,7 +84,6 @@ export default function HorarioMuseo() {
                 const diff = proximoCierre - ahora;
                 setCuentaRegresiva(formatDiff(diff, true));
             } else {
-                // calcular próxima apertura
                 let proximaApertura = new Date(ahora);
 
                 if (horaEnMinutos < aperturaManana) {
@@ -86,11 +91,9 @@ export default function HorarioMuseo() {
                 } else if (horaEnMinutos >= cierreManana && horaEnMinutos < aperturaTarde) {
                     proximaApertura.setHours(16, 0, 0, 0);
                 } else {
-                    // después de las 21:00 -> mañana 9:00
                     proximaApertura.setDate(ahora.getDate() + 1);
                     proximaApertura.setHours(9, 0, 0, 0);
 
-                    // si mañana es domingo -> lunes 9:00
                     if (proximaApertura.getDay() === 0) {
                         proximaApertura.setDate(proximaApertura.getDate() + 1);
                     }
@@ -107,7 +110,6 @@ export default function HorarioMuseo() {
             }
         }
 
-        // formatea la diferencia para mostrar texto
         function formatDiff(diffMs, isClosing) {
             if (diffMs <= 0) return isClosing ? 'Cierra en 0h 0m 0s' : 'Abre en 0h 0m 0s';
             const horas = Math.floor(diffMs / (1000 * 60 * 60));
@@ -116,20 +118,20 @@ export default function HorarioMuseo() {
             return isClosing ? `Cierra en ${horas}h ${minutos}m ${segundos}s` : `Abre en ${horas}h ${minutos}m ${segundos}s`;
         }
 
-        // primera ejecución inmediata
         calcularYActualizar();
-
-        // actualizar cada segundo
         const intervalo = setInterval(calcularYActualizar, 1000);
         return () => clearInterval(intervalo);
-    }, []); // ejecuta una vez y deja el intervalo
+    }, []);
 
-    // markup: si está minimizado renderizamos solo la pestaña; sino la viñeta fija
+    // ✅ No renderizar nada hasta que el cliente esté listo
+    if (!isClient) {
+        return null;
+    }
+
     return (
         <div className={styles.hmRoot}>
-
             {minimized ? (
-                <div className={`${styles.floating} ${styles.minimized}`} aria-hidden="false">
+                <div className={`${styles.floating} ${styles.minimized}`}>
                     <button
                         className={styles.tabButton}
                         onClick={handleRestore}
@@ -203,5 +205,4 @@ export default function HorarioMuseo() {
             )}
         </div>
     );
-
 }

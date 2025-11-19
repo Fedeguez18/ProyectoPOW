@@ -1,59 +1,81 @@
 <?php
 // --- INICIO DE CORRECCIÓN: Encabezados CORS ---
 header("Access-Control-Allow-Origin: *");
+header("Access-Control-Allow-Headers: *");
+header("Access-Control-Allow-Methods: GET, POST, OPTIONS");
 header("Access-Control-Allow-Methods: PUT, POST, OPTIONS");
 header("Access-Control-Allow-Headers: Content-Type");
 header("Content-Type: application/json; charset=UTF-8");
 
-if ($_SERVER['REQUEST_METHOD'] == 'OPTIONS') {
+/*if ($_SERVER['REQUEST_METHOD'] == 'OPTIONS') {
     exit(0);
-}
+}*/
 // --- FIN DE CORRECCIÓN ---
 
 require_once "../config/database.php";
 
-if ($_SERVER["REQUEST_METHOD"] !== "POST" && $_SERVER["REQUEST_METHOD"] !== "PUT") {
+if ($_SERVER["REQUEST_METHOD"] === "OPTIONS") {
+    http_response_code(200);
+    exit;
+}
+
+if ($_SERVER["REQUEST_METHOD"] !== "POST") {
     echo json_encode(["error" => "Método no permitido"]);
     exit;
 }
 
-if (isset($_POST['id'])) {
-    $id = $_POST['id'];
-    $titulo = $_POST['titulo'] ?? '';
-    $categoria = $_POST['categoria'] ?? '';
-    $autor = $_POST['autor'] ?? '';
-    $fecha = $_POST['fecha'] ?? '';
-    $descripcion = $_POST['descripcion'] ?? '';
-    $palabras = $_POST['palabras_clave'] ?? '';
+if (!isset($_POST['id'])) {
+    echo json_encode(["error" => "ID no recibido"]);
+    exit;
+}
 
-    $nuevaRuta = null;
+$id = intval($_POST['id']);
 
-    // Si viene nueva imagen
-    if (isset($_FILES['imagen'])) {
-        $img = $_FILES['imagen'];
-        $ext = strtolower(pathinfo($img['name'], PATHINFO_EXTENSION));
-        if (in_array($ext, ["jpg", "jpeg", "png"])) {
-            $nuevaRuta = "../uploads/" . uniqid() . "." . $ext;
-            move_uploaded_file($img['tmp_name'], $nuevaRuta);
-        }
+$titulo = $_POST['titulo'] ?? '';
+$categoria = $_POST['categoria'] ?? '';
+$autor = $_POST['autor'] ?? '';
+$fecha = $_POST['fecha'] ?? '';
+$descripcion = $_POST['descripcion'] ?? '';
+$palabras = $_POST['palabras_clave'] ?? '';
+
+$nuevaRuta = null;
+
+// Si viene imagen nueva
+if (!empty($_FILES['imagen']['name'])) {
+    $img = $_FILES['imagen'];
+    $ext = strtolower(pathinfo($img['name'], PATHINFO_EXTENSION));
+
+    if (!in_array($ext, ["jpg", "jpeg", "png"])) {
+        echo json_encode(["error" => "Formato no permitido"]);
+        exit;
     }
 
-    // Actualizar con o sin nueva imagen
-    if ($nuevaRuta) {
-        $sql = "UPDATE imagenes SET ruta = ?, titulo = ?, categoria = ?, autor = ?, fecha = ?, descripcion = ?, palabras_clave = ? WHERE id = ?";
-        $stmt = $conn->prepare($sql);
-        $stmt->bind_param("sssssssi", $nuevaRuta, $titulo, $categoria, $autor, $fecha, $descripcion, $palabras, $id);
-    } else {
-        $sql = "UPDATE imagenes SET titulo = ?, categoria = ?, autor = ?, fecha = ?, descripcion = ?, palabras_clave = ? WHERE id = ?";
-        $stmt = $conn->prepare($sql);
-        $stmt->bind_param("ssssssi", $titulo, $categoria, $autor, $fecha, $descripcion, $palabras, $id);
-    }
+    $nuevaRuta = "../uploads/" . uniqid() . "." . $ext;
 
-    if ($stmt->execute()) {
-        echo json_encode(["success" => true, "mensaje" => "Imagen modificada correctamente"]);
-    } else {
-        echo json_encode(["error" => "Error al modificar la imagen"]);
+    if (!move_uploaded_file($img['tmp_name'], $nuevaRuta)) {
+        echo json_encode(["error" => "No se pudo subir la nueva imagen"]);
+        exit;
     }
+}
+
+// Actualizar
+if ($nuevaRuta) {
+    $sql = "UPDATE imagenes 
+            SET ruta = ?, titulo = ?, categoria = ?, autor = ?, fecha = ?, descripcion = ?, palabras_clave = ?
+            WHERE id = ?";
+    $stmt = $conn->prepare($sql);
+    $stmt->bind_param("sssssssi", $nuevaRuta, $titulo, $categoria, $autor, $fecha, $descripcion, $palabras, $id);
 } else {
-    echo json_encode(["error" => "ID no especificado"]);
+    $sql = "UPDATE imagenes 
+            SET titulo = ?, categoria = ?, autor = ?, fecha = ?, descripcion = ?, palabras_clave = ?
+            WHERE id = ?";
+
+    $stmt = $conn->prepare($sql);
+    $stmt->bind_param("ssssssi", $titulo, $categoria, $autor, $fecha, $descripcion, $palabras, $id);
+}
+
+if ($stmt->execute()) {
+    echo json_encode(["success" => true, "mensaje" => "Imagen modificada"]);
+} else {
+    echo json_encode(["error" => "Error al modificar"]);
 }
