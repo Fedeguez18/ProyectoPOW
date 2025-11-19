@@ -1,0 +1,88 @@
+/* --- Sección General --- */
+.listSection {
+  margin-top: 3rem;
+  padding: 1rem 0;
+  display: flex;
+  flex-direction: column;
+  gap: 1.2rem;
+}
+
+/* --- Título --- */
+.listTitle {
+  font-size: 1.7rem;
+  font-weight: 700;
+  color: var(--primary);
+  margin-bottom: 1rem;
+  letter-spacing: 0.5px;
+  text-shadow: 0 1px 2px rgba(0,0,0,0.08);
+}
+
+/* --- Lista --- */
+.list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 1.3rem;
+}
+
+/* --- Item (glass aesthetic) --- */
+.commentItem {
+  padding: 1.4rem 1.6rem;
+  background: rgba(var(--primary-rgb), 0.06);
+  backdrop-filter: blur(10px);
+  border-radius: 14px;
+  border: 1px solid rgba(var(--primary-rgb), 0.25);
+  box-shadow: 0 6px 18px rgba(0,0,0,0.08);
+  transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
+}
+
+/* efecto hover aesthetic */
+.commentItem:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 10px 28px rgba(0,0,0,0.12);
+  border-color: rgba(var(--primary-rgb), 0.45);
+}
+
+/* --- Nombre del usuario --- */
+.commentUser {
+  display: inline-block;
+  font-weight: 700;
+  font-size: 1.05rem;
+  color: var(--primary);
+  margin-bottom: 0.3rem;
+  letter-spacing: 0.3px;
+}
+
+/* --- Texto del comentario --- */
+.commentText {
+  margin: 0.4rem 0 0.8rem 0;
+  font-size: 1.05rem;
+  color: var(--text);
+  line-height: 1.6;
+  opacity: 0.95;
+}
+
+/* --- Fecha --- */
+.commentDate {
+  font-size: 0.85rem;
+  color: var(--text-second);
+  opacity: 0.7;
+  letter-spacing: 0.2px;
+}
+
+/* --- Separador suave entre comentarios (mini detalle aesthetic) --- */
+.commentItem::after {
+  content: "";
+  display: block;
+  height: 1px;
+  margin-top: 1.2rem;
+  background: linear-gradient(
+    to right,
+    transparent,
+    rgba(var(--primary-rgb), 0.25),
+    transparent
+  );
+  opacity: 0.4;
+}

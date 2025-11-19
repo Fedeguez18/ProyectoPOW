@@ -21,9 +21,13 @@ echo json_encode([
     "version" => "1.0",
     "endpoints_disponibles" => [
         "GET  /endpoints/list.php" => "Listar todas las imágenes y metadatos",
+        "GET /endpoints/listarComentarios.php" => "Listar comentarios aprobados para una imagen",
         "POST /endpoints/upload.php" => "Subir nueva imagen y metadatos",
         "POST /endpoints/update.php" => "Actualizar metadatos de una imagen",
-        "DELETE /endpoints/delete.php" => "Eliminar una imagen"
+        "POST /endpoints/cargarComentario.php" => "Cargar un comentario para una imagen",
+        "POST /endpoints/cargarContacto.php" => "Enviar mensaje desde formulario de contacto",
+        "POST /endpoints/cargarVisita.php" => "Enviar solicitud de visita escolar",
+        "DELETE /endpoints/delete.php" => "Eliminar una imagen"        
     ]
 ]);
 ?>
