@@ -1,0 +1,141 @@
+/* CONTENEDOR GENERAL */
+.admin-container {
+    max-width: 1100px;
+    margin: 40px auto;
+    padding: 20px;
+    font-family: "Segoe UI", sans-serif;
+}
+
+/* TÍTULO PRINCIPAL */
+.admin-title {
+    font-size: 38px;
+    font-weight: 700;
+    text-align: center;
+    color: #1a3c6e;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    margin-bottom: 35px;
+    padding-bottom: 10px;
+    border-bottom: 3px solid #1a3c6e33;
+}
+
+/* SUBTÍTULOS */
+h2 {
+    text-align: center;
+    font-size: 28px;    
+    font-weight: 600;
+    color: #2E2B25;
+}
+
+/* FORMULARIO */
+form {
+    background: #fdfdfd;
+    padding: 30px;
+    border-radius: 14px;
+    border: 1px solid #dedede;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.08);
+}
+
+form h3 {
+    font-size: 24px;
+    color: #1a3c6e;
+    margin-bottom: 20px;
+    font-weight: 600;
+}
+
+/* CAMPOS */
+form input,
+form textarea {
+    width: 100%;
+    padding: 12px;
+    font-size: 15px;
+    border-radius: 8px;
+    border: 1px solid #cccccc;
+    background: #ffffff;
+    margin-bottom: 18px;
+    transition: border 0.2s, box-shadow 0.2s;
+}
+
+form input:focus,
+form textarea:focus {
+    border-color: #1a3c6e;
+    box-shadow: 0 0 4px #1a3c6e77;
+    outline: none;
+}
+
+/* LABELS */
+form label {
+    font-size: 15px;
+    font-weight: 600;
+    color: #333;
+    margin-bottom: 5px;
+    display: block;
+}
+
+/* BOTONES */
+button {
+    padding: 10px 20px;
+    margin-right: 10px;
+    background: #6B8A6F;
+    border: none;
+    color: white;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 15px;
+    transition: 0.25s;
+}
+
+button:hover {
+    background: #388442;
+}
+#elim {
+    background-color: #B26B34;   /* rojo bonito */
+    color: white;
+}
+
+#elim:hover {
+    background-color: #ab6d1c;   /* rojo más oscuro */
+}
+button[type="button"] {
+    background: #777;
+}
+
+button[type="button"]:hover {
+    background: #555;
+}
+
+/* TABLAS */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 40px;
+    background: white;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.08);
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+table thead {
+    background: #1a3c6e;
+    color: white;
+}
+
+table th, table td {
+    padding: 12px;
+    text-align: center;
+    font-size: 15px;
+    border-bottom: 1px solid #ddd;
+}
+
+/*table tr:hover {
+    background: #7286a0;
+}*/
+
+table img {
+    border-radius: 6px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.15);
+}
+table .action-buttons button {
+    padding: 6px 12px;
+    font-size: 14px;
+}

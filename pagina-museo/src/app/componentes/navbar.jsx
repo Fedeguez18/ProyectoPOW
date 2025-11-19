@@ -6,10 +6,18 @@ import Link from 'next/link';
 import { Search } from 'lucide-react';
 import styles from '../styles/navbar.module.css';
 import Busqueda from './busqueda'; // 1. Importamos el nuevo componente
+import { useUsuario } from "../useUsuario";
+
+
+
+
 
 export default function Navbar() {
   const [searchOpen, setSearchOpen] = useState(false); // Estado para controlar el overlay
   const [isScrolled, setIsScrolled] = useState(false);
+  const { usuario, logueado, cerrarSesion } = useUsuario();
+  
+
 
   React.useEffect(() => {
     const handleScroll = () => {
@@ -27,11 +35,11 @@ export default function Navbar() {
           {/* === LOGO Y TÍTULO === */}
           <div className="flex items-center">
             <Link href="/" className="flex items-center gap-3">
-              <Image 
+              <Image
                 src="/recursos/logo.png"
-                alt="Logo del Museo" 
-                width={100} 
-                height={100} 
+                alt="Logo del Museo"
+                width={100}
+                height={100}
               />
               <h1 className="text-xl font-bold text-gray-800">
                 Museo de Ciencias Naturales
@@ -47,33 +55,54 @@ export default function Navbar() {
               <li><Link href="/museo">Museo</Link></li>
               <li><Link href="/exhibiciones">Exhibiciones</Link></li>
               <li><Link href="/contacto">Contacto</Link></li>
+
             </ul>
           </div>
-          
+
           {/* === ZONA DERECHA: BÚSQUEDA Y AVATAR === */}
           <div className={styles.rightSection}>
             {/* 2. Este botón ahora solo necesita abrir el overlay */}
-            <button 
-              className={styles.searchBtn} 
-              onClick={() => setSearchOpen(true)} 
+            <button
+              className={styles.searchBtn}
+              onClick={() => setSearchOpen(true)}
               aria-label="Abrir búsqueda"
             >
               <Search size={22} />
             </button>
           </div>
 
-           <div className={styles.avatar}>
-              <Image 
-                src='/file.svg'
+          {logueado ? (
+            <button
+              onClick={cerrarSesion}
+              className={styles.logoutBtn}
+              style={{
+                padding: "8px 14px",
+                background: "#b80000",
+                color: "white",
+                borderRadius: "8px",
+                fontWeight: "bold"
+              }}
+            >
+              Cerrar sesión
+            </button>
+          ) : (
+            <Link href="/login" className={styles.avatar}>
+              <Image
+                src="/login.jpg"
                 alt="Foto de perfil del usuario"
                 width={50}
                 height={50}
-                className="object-cover w-full h-full"
               />
-            </div>
+            </Link>
+          )}
+          {logueado && usuario?.premiun && (
+            <span className="text-yellow-500 font-bold">
+              ⭐ Usuario Premium
+            </span>
+          )}
         </div>
       </nav>
-      
+
       {/* 3. Renderizamos el overlay y le pasamos el estado y la función para cerrarlo */}
       <Busqueda isOpen={searchOpen} onClose={() => setSearchOpen(false)} />
     </>

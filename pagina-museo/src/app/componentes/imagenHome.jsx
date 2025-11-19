@@ -24,7 +24,9 @@ export default function ImagenHome({ imagenSrc, titulo, seccion }) {
     <div className={styles.heroRoot} style={imagenBackground}>
       <div className={styles.heroContent}>
         <h1>{titulo}</h1>
-        <p className={styles.sectionText}>{getSeccionTexto(seccion)}</p>
+        <div className={styles.sectionText}>
+          {getSeccionTexto(seccion)}
+        </div>
       </div>
     </div>
   );
