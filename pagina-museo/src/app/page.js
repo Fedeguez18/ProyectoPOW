@@ -2,6 +2,7 @@ import ImagenHome from "./componentes/imagenHome";
 import MuseoTematicas from "./componentes/museoTematicas";
 import Carrusel from "./componentes/carrusel";
 import MapaUbicacion from "./componentes/mapaUbicacion";
+import HorarioMuseo from "./componentes/HorarioMuseo"; // ← NUEVO
 
 export default function Home() {
   return (
@@ -13,6 +14,9 @@ export default function Home() {
         <h2>Colecciones Destacadas</h2>
         <Carrusel />
       </div>
+
+      {/* ← NUEVO: Componente de horarios */}
+      <HorarioMuseo />
 
       <MapaUbicacion /> 
 

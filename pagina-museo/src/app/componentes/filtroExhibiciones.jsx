@@ -2,10 +2,15 @@
 import { useState, useEffect } from 'react';
 import styles from '../styles/filtroExhibiciones.module.css';
 
-export default function FiltroExhibiciones({ onFiltrar, categorias = [] }) {
+export default function FiltroExhibiciones({ onFiltrar, categorias = [], categoriaInicial = 'Todas' }) {
   const [busqueda, setBusqueda] = useState('');
-  const [categoriaSeleccionada, setCategoriaSeleccionada] = useState('Todas');
+  const [categoriaSeleccionada, setCategoriaSeleccionada] = useState(categoriaInicial);
   const [ordenSeleccionado, setOrdenSeleccionado] = useState('A-Z');
+
+  // Actualizar categoría si cambia desde fuera
+  useEffect(() => {
+    setCategoriaSeleccionada(categoriaInicial);
+  }, [categoriaInicial]);
 
   // Ejecutar filtrado cada vez que cambie algún criterio
   useEffect(() => {

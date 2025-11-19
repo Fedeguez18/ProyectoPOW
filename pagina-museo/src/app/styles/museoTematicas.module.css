@@ -35,12 +35,130 @@
   font-weight: 700;
   text-align: center;
   margin-bottom: 2.5rem;
-  /* Cambio: Texto claro sobre fondo oscuro */
-  color: var(--text-claro);
+  /* Restaurar rectángulo oscuro: texto claro sobre fondo oscuro */
+  color: var(--superficie);
   letter-spacing: 0.01em;
-  /* Cambio: Fondo oscuro de la paleta */
-  background: var(--text); 
+  /* Fondo usando color de texto (oscuro) para lograr el rectángulo contrastado */
+  background: var(--text);
   padding: 0.9rem 0;
   box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
   transition: color 0.3s, background 0.3s;
+}
+
+/* Make the title occupy available space in the header and look like a rectangle */
+.headerWrapper > .tituloSeccion,
+.tituloSeccion {
+  flex: 1 1 auto;
+  border-radius: 6px;
+  margin: 0;
+}
+
+/* --- Carrusel / Header controls (integración de estilos provistos) --- */
+.headerWrapper {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 2rem;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.controles {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.controlBtn {
+  padding: 0.45rem 0.9rem;
+  background: transparent;
+  color: var(--text);
+  border: 1px solid var(--bordes);
+  border-radius: 999px; /* pill */
+  cursor: pointer;
+  font-weight: 700;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  min-width: 44px;
+  height: 44px;
+  transition: transform 0.18s ease, box-shadow 0.12s ease, background 0.12s ease;
+}
+
+.controlBtn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 18px rgba(0,0,0,0.06);
+}
+
+.controlBtn:active {
+  transform: translateY(0);
+}
+
+.indicador {
+  font-weight: 600;
+  color: var(--text-second);
+  min-width: 60px;
+  text-align: center;
+}
+
+/* small chevron styling inside the button */
+.chev {
+  font-size: 1.05rem;
+  line-height: 1;
+}
+
+/* visually hidden helper for accessibility */
+.srOnly {
+  position: absolute !important;
+  height: 1px;
+  width: 1px;
+  overflow: hidden;
+  clip: rect(1px, 1px, 1px, 1px);
+  white-space: nowrap;
+  border: 0;
+  padding: 0;
+  margin: -1px;
+}
+
+.autoRotateHint {
+  text-align: center;
+  color: var(--text-second);
+  font-size: 0.9rem;
+  margin-top: 1.5rem;
+  font-style: italic;
+}
+
+/* Transición suave */
+.gridContainer.transitioning {
+  opacity: 0.3;
+  transform: scale(0.98);
+}
+
+.gridContainer {
+  opacity: 1;
+  transform: scale(1);
+  transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+/* Controls bar under carousel, centered */
+.controlsBar {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  margin-top: 1.25rem;
+}
+
+/* Responsive para controles */
+@media (max-width: 768px) {
+  .headerWrapper {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .controles {
+    width: 100%;
+    justify-content: center;
+  }
 }

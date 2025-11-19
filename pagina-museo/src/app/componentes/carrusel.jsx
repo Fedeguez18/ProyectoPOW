@@ -1,30 +1,26 @@
 "use client"; 
 import { Swiper, SwiperSlide } from 'swiper/react';
-import { Navigation, Pagination, Autoplay, EffectFade } from 'swiper/modules';
+import { Navigation, Pagination, Autoplay, EffectFade, Parallax } from 'swiper/modules';
 import Image from 'next/image';
+import Link from 'next/link';
 import styles from '../styles/carrusel.module.css';
-
-// 1. Importar hooks de React
 import { useState, useEffect } from 'react';
+import { getImageUrl } from '../utils/config';
 
-// Importa los estilos de Swiper
 import 'swiper/css';
 import 'swiper/css/navigation';
 import 'swiper/css/pagination';
 import 'swiper/css/effect-fade';
 
-// 2. Definir la URL de tu API
 const API_BASE = process.env.NEXT_PUBLIC_API_BASE || 'http://localhost/ProyectoPOW/API_Proyecto';
-// Llama a la categoría 'carrusel' (¡Debes crearla en tu BD!)
 const API_URL = `${API_BASE}/endpoints/listar_img.php?categoria=carrusel`;
 
 export default function Carrusel() {
-  // 3. Estados para datos, carga y error
   const [slidesData, setSlidesData] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [activeIndex, setActiveIndex] = useState(0);
 
-  // 4. Hook para llamar a la API
   useEffect(() => {
     const fetchSlides = async () => {
       try {
@@ -34,14 +30,13 @@ export default function Carrusel() {
         }
         const data = await response.json();
         
-        // 5. Mapear datos de la BD a lo que el componente espera
         const formattedData = data.map(item => ({
           id: item.id,
-          // Construye la URL completa de la imagen
-          src: `${API_BASE}/${item.ruta}`, 
+          src: getImageUrl(item.ruta),
           alt: item.titulo,
           title: item.titulo,
-          subtitle: item.descripcion.substring(0, 100) + '...' // Acorta la descripción
+          subtitle: item.descripcion?.substring(0, 150) || '',
+          categoria: item.categoria
         }));
 
         setSlidesData(formattedData);
@@ -54,52 +49,117 @@ export default function Carrusel() {
     };
 
     fetchSlides();
-  }, []); // El array vacío [] significa que se ejecuta solo una vez
+  }, []);
 
-  // 6. Manejar estados de carga y error
   if (loading) {
-    return <div className={styles.wrapper}>Cargando carrusel...</div>;
+    return (
+      <div className={styles.wrapper}>
+        <div className={styles.loadingContainer}>
+          <div className={styles.spinner}></div>
+          <p>Cargando colecciones destacadas...</p>
+        </div>
+      </div>
+    );
   }
 
-  if (error) {
-    return <div className={styles.wrapper}>Error al cargar carrusel: {error}</div>;
+  if (error || slidesData.length === 0) {
+    return (
+      <div className={styles.wrapper}>
+        <div className={styles.errorContainer}>
+          <p>No hay colecciones destacadas disponibles</p>
+        </div>
+      </div>
+    );
   }
 
   return (
     <div className={styles.wrapper}>
       <div className={styles.inner}>
+        {/* Indicador de slide actual */}
+        <div className={styles.slideCounter}>
+          <span className={styles.currentSlide}>{activeIndex + 1}</span>
+          <span className={styles.separator}>/</span>
+          <span className={styles.totalSlides}>{slidesData.length}</span>
+        </div>
+
         <Swiper
-          modules={[Navigation, Pagination, Autoplay, EffectFade]}
+          modules={[Navigation, Pagination, Autoplay, EffectFade, Parallax]}
           spaceBetween={50}
           slidesPerView={1}
           effect={'fade'}
           fadeEffect={{ crossFade: true }}
-          autoplay={{ delay: 3500, disableOnInteraction: false }}
-          navigation
-          pagination={{ clickable: true }}
-          loop={slidesData.length > 1} // Desactiva el loop si solo hay 1 imagen
+          parallax={true}
+          speed={800}
+          autoplay={{ 
+            delay: 5000, 
+            disableOnInteraction: false,
+            pauseOnMouseEnter: true 
+          }}
+          navigation={{
+            nextEl: `.${styles.customNext}`,
+            prevEl: `.${styles.customPrev}`,
+          }}
+          pagination={{ 
+            clickable: true,
+            dynamicBullets: true,
+          }}
+          loop={slidesData.length > 1}
+          onSlideChange={(swiper) => setActiveIndex(swiper.realIndex)}
+          className={styles.swiperContainer}
         >
           {slidesData.map((slide) => (
             <SwiperSlide key={slide.id}>
-              <div className={styles.slideRoot}>
-                <Image 
-                  src={slide.src} // Esta ya es una URL completa
-                  alt={slide.alt} 
-                  width={900} 
-                  height={450} 
-                  className={styles.image}
-                  priority={false}
-                  // Importante para imágenes externas en Next.js
-                  unoptimized={true} 
-                />
-                <div className={styles.caption}>
-                  <h3>{slide.title}</h3>
-                  <p>{slide.subtitle}</p>
+              <Link href={`/exhibiciones/${slide.id}`} className={styles.slideLink}>
+                <div className={styles.slideRoot}>
+                  {/* Overlay gradient */}
+                  <div className={styles.overlay}></div>
+                  
+                  {/* Imagen con efecto parallax */}
+                  <div className={styles.imageContainer} data-swiper-parallax="-20%">
+                    <Image 
+                      src={slide.src}
+                      alt={slide.alt} 
+                      fill
+                      className={styles.image}
+                      priority={false}
+                      unoptimized={true}
+                      style={{ objectFit: 'cover' }}
+                    />
+                  </div>
+                  
+                  {/* Caption con animación */}
+                  <div className={styles.caption} data-swiper-parallax="-100">
+                    <div className={styles.captionContent}>
+                      <span className={styles.badge}>✨ Destacado</span>
+                      <h3 className={styles.title}>{slide.title}</h3>
+                      {slide.subtitle && (
+                        <p className={styles.subtitle}>{slide.subtitle}</p>
+                      )}
+                      <div className={styles.viewMore}>
+                        <span>Ver detalle</span>
+                        <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+                          <path d="M7.5 15L12.5 10L7.5 5" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                        </svg>
+                      </div>
+                    </div>
+                  </div>
                 </div>
-              </div>
+              </Link>
             </SwiperSlide>
           ))}
         </Swiper>
+
+        {/* Botones de navegación personalizados */}
+        <button className={`${styles.navButton} ${styles.customPrev}`} aria-label="Anterior">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+            <path d="M15 18L9 12L15 6" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+          </svg>
+        </button>
+        <button className={`${styles.navButton} ${styles.customNext}`} aria-label="Siguiente">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+            <path d="M9 18L15 12L9 6" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+          </svg>
+        </button>
       </div>
     </div>
   );

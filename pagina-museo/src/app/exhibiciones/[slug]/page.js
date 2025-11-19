@@ -26,7 +26,7 @@ export async function generateStaticParams() {
 
 // El componente de la página recibe `params` que contiene el `slug` de la URL
 export default async function PaginaDetalleExhibicion({ params }) {
-  const { slug } = params;
+  const { slug } =  await params;
   const all = await fetchExhibiciones();
   
   // Buscar por ID (convertido a string para comparar)

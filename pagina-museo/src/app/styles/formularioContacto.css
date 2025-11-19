@@ -1,18 +1,51 @@
+/* Theme variables (light / dark) */
+:root {
+  --primary: #9C784A;
+  --primary-rgb: 156,120,74;
+  --secondary: #6B8A6F;
+  --accent: #B26B34;
+  --background: #F4F1EC;
+  --superficie: #EAE6E0;
+  --text: #2E2B25;
+  --text-second: #6B665D;
+  --bordes: #C8BFB4;
+  --tab-icon-default: #B26B34;
+  --tab-icon-selected: #B26B34;
+  --icon: #2E2B25;
+}
+
+[data-theme="dark"] {
+  --primary: #C9A66B;
+  --primary-rgb: 201,166,107;
+  --secondary: #7FAE88;
+  --accent: #D18A54;
+  --background: #1C1C1A;
+  --superficie: #2A2A27;
+  --text: #EAE6E0;
+  --text-second: #B3ADA3;
+  --bordes: #3B3B38;
+  --tab-icon-default: #D18A54;
+  --tab-icon-selected: #D18A54;
+  --icon: #EAE6E0;
+}
+
 /* Contenedor principal */
 .contacto-container {
   width: 100%;
   max-width: 900px; /* Ancho máximo del formulario */
   margin: 2rem auto;
   padding: 2rem;
-  background-color: #ffffff;
+  background-color: var(--superficie);
   border-radius: 8px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+  box-shadow: 0 6px 18px rgba(0,0,0,0.06);
+  color: var(--text);
 }
 
 .contacto-container h2 {
   text-align: left;
   margin-bottom: 2rem;
   font-size: 2rem; /* Tamaño del título "Formulario de Contacto" */
+  color: var(--primary);
 }
 
 /* Estilos del formulario */
@@ -33,7 +66,7 @@
   margin-bottom: 0.5rem;
   font-weight: 600;
   font-size: 0.9rem;
-  color: #333;
+  color: var(--text-second);
 }
 
 .form-group input[type="text"],
@@ -45,9 +78,11 @@
 .form-group textarea {
   width: 100%;
   padding: 0.75rem;
-  border: 1px solid #ccc;
-  border-radius: 4px;
+  border: 1px solid var(--bordes);
+  border-radius: 6px;
   font-size: 1rem;
+  background: var(--background);
+  color: var(--text);
   box-sizing: border-box; /* Asegura que el padding no afecte el ancho */
 }
 
@@ -59,7 +94,7 @@
 .form-group small,
 .form-hint {
   font-size: 0.8rem;
-  color: #666;
+  color: var(--text-second);
   margin-top: 0.25rem;
 }
 
@@ -73,17 +108,18 @@
 /* Botón de envío */
 .submit-btn {
   padding: 0.8rem 1.5rem;
-  background-color: #007bff; /* Un color de acento, cámbialo por el de tu museo */
+  background-color: var(--accent);
   color: white;
   border: none;
-  border-radius: 4px;
+  border-radius: 6px;
   font-size: 1rem;
   font-weight: 600;
   cursor: pointer;
-  transition: background-color 0.3s ease;
+  transition: opacity 0.16s ease, transform 0.08s ease;
   align-self: flex-start; /* Alinea el botón a la izquierda */
 }
 
 .submit-btn:hover {
-  background-color: #0056b3;
+  opacity: 0.94;
+  transform: translateY(-1px);
 }

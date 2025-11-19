@@ -1,5 +1,6 @@
 'use client';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
+import { useSearchParams } from 'next/navigation';
 import CartaExhibiciones from '../componentes/cartaExhibicion';
 import ImagenHome from '../componentes/imagenHome';
 import FiltroExhibiciones from '../componentes/FiltroExhibiciones';
@@ -8,17 +9,26 @@ import styles from '../styles/museoTematicas.module.css';
 const API_BASE = process.env.NEXT_PUBLIC_API_BASE || 'http://localhost/ProyectoPOW/API_Proyecto';
 
 export default function PaginaExhibiciones() {
+  const searchParams = useSearchParams();
+  const categoriaURL = searchParams.get('categoria');
+
   const [exhibicionesOriginales, setExhibicionesOriginales] = useState([]);
   const [exhibicionesFiltradas, setExhibicionesFiltradas] = useState([]);
   const [categorias, setCategorias] = useState([]);
   const [loading, setLoading] = useState(true);
   const [cantidadMostrada, setCantidadMostrada] = useState(20);
+  const [categoriaInicial, setCategoriaInicial] = useState('Todas');
   const cantidadPorCarga = 20;
 
-  // Cargar exhibiciones al montar el componente
   useEffect(() => {
     fetchExhibiciones();
   }, []);
+
+  useEffect(() => {
+    if (categoriaURL) {
+      setCategoriaInicial(categoriaURL);
+    }
+  }, [categoriaURL]);
 
   const fetchExhibiciones = async () => {
     try {
@@ -36,14 +46,32 @@ export default function PaginaExhibiciones() {
       }
       
       const json = await res.json();
-      const exhibiciones = Array.isArray(json) ? json : [];
+      
+      // ⚡ FILTRAR: Excluir imágenes con categoría "banner-*"
+      const exhibiciones = Array.isArray(json) 
+        ? json.filter(item => {
+            const cat = item.categoria || '';
+            return !cat.toLowerCase().startsWith('banner-');
+          })
+        : [];
       
       setExhibicionesOriginales(exhibiciones);
-      setExhibicionesFiltradas(exhibiciones);
       
-      // Extraer categorías únicas
-      const categoriasUnicas = [...new Set(exhibiciones.map(item => item.categoria).filter(Boolean))];
+      // Extraer categorías únicas (ya filtradas)
+      const categoriasUnicas = [...new Set(
+        exhibiciones
+          .map(item => item.categoria)
+          .filter(Boolean)
+      )];
       setCategorias(categoriasUnicas);
+      
+      // Si hay categoría en URL, filtrar automáticamente
+      if (categoriaURL) {
+        const filtrados = exhibiciones.filter(item => item.categoria === categoriaURL);
+        setExhibicionesFiltradas(filtrados);
+      } else {
+        setExhibicionesFiltradas(exhibiciones);
+      }
       
     } catch (e) {
       console.error('Error en fetchExhibiciones:', e);
@@ -52,8 +80,7 @@ export default function PaginaExhibiciones() {
     }
   };
 
-  // Función de filtrado
-  const handleFiltrar = ({ busqueda, categoria, orden }) => {
+  const handleFiltrar = useCallback(({ busqueda, categoria, orden }) => {
     let resultados = [...exhibicionesOriginales];
 
     // Filtrar por búsqueda
@@ -92,10 +119,9 @@ export default function PaginaExhibiciones() {
     }
 
     setExhibicionesFiltradas(resultados);
-    setCantidadMostrada(cantidadPorCarga); // Reiniciar al filtrar
-  };
+    setCantidadMostrada(cantidadPorCarga);
+  }, [exhibicionesOriginales]);
 
-  // Cargar más exhibiciones
   const cargarMas = () => {
     setCantidadMostrada(prev => prev + cantidadPorCarga);
   };
@@ -123,18 +149,31 @@ export default function PaginaExhibiciones() {
       <section className={styles.museoTematicasRoot}>
         <h2 className={styles.tituloSeccion}>Catálogo de Exhibiciones</h2>
 
-        {/* Componente de filtrado */}
+        {categoriaURL && (
+          <div style={{ 
+            background: '#eff6ff', 
+            padding: '1rem',
+            borderRadius: '8px', 
+            marginTop: '0.75rem', // separación añadida respecto al título
+            marginBottom: '1rem',
+            border: '2px solid #5f8f43b0'
+          }}>
+            <p style={{ margin: 0 }}>
+              Mostrando exhibiciones de: <strong>{categoriaURL}</strong>
+            </p>
+          </div>
+        )}
+
         <FiltroExhibiciones 
           onFiltrar={handleFiltrar}
           categorias={categorias}
+          categoriaInicial={categoriaInicial}
         />
 
-        {/* Contador de resultados */}
-        <div style={{ marginBottom: '1rem', color: '#6b7280' }}>
+        <div style={{ marginBottom: '1rem', color: '#c2b9acff' }}>
           Mostrando {exhibicionesAMostrar.length} de {exhibicionesFiltradas.length} exhibiciones
         </div>
 
-        {/* Grid de exhibiciones */}
         {exhibicionesAMostrar.length === 0 ? (
           <div style={{ textAlign: 'center', padding: '3rem' }}>
             <p>No se encontraron exhibiciones con los filtros seleccionados.</p>
@@ -150,14 +189,13 @@ export default function PaginaExhibiciones() {
               ))}
             </div>
 
-            {/* Botón "Ver más" */}
             {hayMas && (
               <div style={{ textAlign: 'center', marginTop: '2rem' }}>
                 <button 
                   onClick={cargarMas}
                   style={{
                     padding: '0.75rem 2rem',
-                    background: '#3b82f6',
+                    background: '#5f8f43ff',
                     color: 'white',
                     border: 'none',
                     borderRadius: '8px',
