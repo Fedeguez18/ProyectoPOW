@@ -1,28 +1,33 @@
+/* ======================= WRAPPER GENERAL ======================= */
 .filtroWrapper {
   margin-bottom: 2rem;
-  background: var(--background, #f9fafb); /* Fondo general desde palette */
+  background: var(--background, #f9fafb);
   border-radius: 12px;
   box-shadow: 0 6px 18px rgba(0,0,0,0.04);
   padding: 1.5rem;
+  margin-top: 1rem;
 }
 
+/* ======================= HEADER (BUSQUEDA + BOTON) ======================= */
 .header {
   display: flex;
   gap: 1rem;
   align-items: center;
   margin-bottom: 1rem;
+  flex-wrap: wrap;
 }
 
+/* ======================= BUSQUEDA ======================= */
 .busquedaWrapper {
   position: relative;
-  flex-grow: 1; /* Ocupa el espacio restante */
+  flex-grow: 1;
 }
 
 .busquedaInput {
   width: 100%;
   padding: 0.75rem 2.5rem 0.75rem 1rem;
   font-size: 1rem;
-  border: 1px solid var(--bordes, #d1d5db); /* Borde desde palette */
+  border: 1px solid var(--bordes, #d1d5db);
   border-radius: 8px;
   background: var(--superficie, #ffffff);
   color: var(--text, #1f2937);
@@ -56,7 +61,7 @@
   color: var(--accent, #B26B34);
 }
 
-/* --- Botón de Toggle (Más Filtros) --- */
+/* ======================= BOTON MOSTRAR / OCULTAR FILTROS ======================= */
 .toggleFiltrosBtn {
   padding: 0.75rem 1.25rem;
   background: var(--superficie, #ffffff);
@@ -82,23 +87,25 @@
   transition: transform 0.3s ease-in-out;
 }
 
-/* --- Contenedor Desplegable de Filtros (La animación) --- */
+/* ======================= DESPLEGABLE DE FILTROS ======================= */
+/* Cerrado por defecto */
 .filtroContainer {
-  /* Propiedades de la animación */
   max-height: 0;
   overflow: hidden;
   opacity: 0;
-  transition: max-height 0.5s ease-in-out, opacity 0.4s ease-in-out, padding 0.5s ease-in-out;
   padding-top: 0;
+  transition: max-height 0.5s ease-in-out, opacity 0.4s ease-in-out, padding 0.4s ease-in-out;
 }
 
-.filtroContainer.visible {
-  max-height: 500px; /* Valor suficiente para que quepa todo el contenido */
+/* Abierto */
+.visible {
+  max-height: 800px; /* alto suficiente para todo */
   opacity: 1;
-  padding-top: 1.5rem; /* Separación una vez visible */
-  border-top: 1px solid var(--bordes, #e5e7eb); /* Separador sutil */
+  padding-top: 1.5rem;
+  border-top: 1px solid var(--bordes, #e5e7eb);
 }
 
+/* ======================= CONTENIDO DE FILTROS ======================= */
 .filtrosRow {
   display: flex;
   gap: 2rem;
@@ -130,7 +137,7 @@
   padding: 0.5rem 1rem;
   background: var(--superficie, white);
   border: 1px solid var(--bordes, #d1d5db);
-  border-radius: 20px; /* Botones de categoría tipo "píldora" */
+  border-radius: 20px;
   cursor: pointer;
   transition: all 0.18s ease;
   font-size: 0.9rem;
@@ -144,7 +151,7 @@
   background: rgba(var(--primary-rgb, 156,120,74), 0.06);
 }
 
-.categoriaBtn.active {
+.active {
   background: var(--primary, #3b82f6);
   color: white;
   border-color: var(--primary, #3b82f6);
@@ -167,15 +174,7 @@
   border-color: var(--primary, #9C784A);
 }
 
-/* --- Fila de Acciones (Aplicar y Limpiar) --- */
-.accionesRow {
-    display: flex;
-    justify-content: flex-end;
-    gap: 1rem;
-    padding-top: 1rem;
-    border-top: 1px dashed #e5e7eb;
-}
-
+/* ======================= FILA DE ACCIONES ======================= */
 .accionesRow {
   display: flex;
   justify-content: flex-end;
@@ -183,36 +182,24 @@
   padding-top: 1rem;
   border-top: 1px dashed var(--bordes, #e5e7eb);
 }
-.aplicarBtn,
+
 .limpiarTodoBtn {
   padding: 0.75rem 1.5rem;
   border: none;
   border-radius: 8px;
   cursor: pointer;
   font-weight: 600;
-  transition: background 0.16s, transform 0.08s;
-}
-
-.aplicarBtn {
-  background: var(--secondary, #10b981);
-  color: white;
-}
-
-.aplicarBtn:hover {
-  filter: brightness(0.95);
-  transform: translateY(-1px);
-}
-
-.limpiarTodoBtn {
   background: var(--superficie, #f3f4f6);
   color: var(--text-second, #4b5563);
+  transition: background 0.16s, transform 0.08s;
 }
 
 .limpiarTodoBtn:hover {
   background: rgba(0,0,0,0.06);
+  transform: translateY(-1px);
 }
 
-/* Responsive */
+/* ======================= RESPONSIVE ======================= */
 @media (max-width: 768px) {
   .header {
     flex-direction: column;
@@ -235,6 +222,6 @@
   }
 
   .accionesRow {
-    flex-direction: column-reverse; /* Pone Limpiar arriba y Aplicar abajo */
+    flex-direction: column-reverse;
   }
 }
