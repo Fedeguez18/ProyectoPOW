@@ -8,12 +8,13 @@ import styles from "../styles/tematicaCarta.module.css";
 export default function TematicaCarta({ data, onHover, onLeave }) {
     const [currentImageIndex, setCurrentImageIndex] = useState(0);
     const [isHovering, setIsHovering]= useState(false);
-    
+    const images = Array.isArray(data?.images) ? data.images : [];
+    const placeholder = '/recursos/banner-exhibiciones.jpg';
     useEffect(() => {
         let interval;
-        if(isHovering && data.images.length > 1) {
+        if(isHovering && images.length > 1) {
             interval = setInterval(() => {
-                setCurrentImageIndex((prevIndex) => (prevIndex + 1) % data.images.length);
+                setCurrentImageIndex((prevIndex) => (prevIndex + 1) % images.length);
             }, 3000);
         }
         
@@ -33,12 +34,13 @@ export default function TematicaCarta({ data, onHover, onLeave }) {
             style={{'--card-color': data.color}}>
             <div className={styles.imageWrapper}>
                 <Image 
-                        src={data.images[currentImageIndex]}
-                        alt={data.titulo}
+                    src={images.length ? images[currentImageIndex % images.length] : placeholder}
+                    alt={data.titulo}
                         fill
                         style={{objectFit: 'cover'}}
                         sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                         priority={false}
+                        unoptimized={true}
                 />
             </div>
             <div className={styles.titleOverlay}>

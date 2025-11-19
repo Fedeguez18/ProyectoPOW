@@ -5,23 +5,11 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { Search } from 'lucide-react';
 import styles from '../styles/navbar.module.css';
-import Busqueda from './busqueda'; // 1. Importamos el nuevo componente
-import { useUsuario } from "../useUsuario";
-
-
-
-
-
-const API_BASE = process.env.NEXT_PUBLIC_API_BASE || 'http://localhost/ProyectoPOW/API_Proyecto';
-// Construir la URL del logo
-const logoSrc = `${API_BASE}/uploads/logo.png`;
+import Busqueda from '../../pagina-museo/src/app/componentes/busqueda'; // 1. Importamos el nuevo componente
 
 export default function Navbar() {
   const [searchOpen, setSearchOpen] = useState(false); // Estado para controlar el overlay
   const [isScrolled, setIsScrolled] = useState(false);
-  const { usuario, logueado, cerrarSesion } = useUsuario();
-  
-
 
   React.useEffect(() => {
     const handleScroll = () => {
@@ -62,54 +50,33 @@ export default function Navbar() {
               <li><Link href="/museo">Museo</Link></li>
               <li><Link href="/exhibiciones">Exhibiciones</Link></li>
               <li><Link href="/contacto">Contacto</Link></li>
-
             </ul>
           </div>
-
+          
           {/* === ZONA DERECHA: BÚSQUEDA Y AVATAR === */}
           <div className={styles.rightSection}>
             {/* 2. Este botón ahora solo necesita abrir el overlay */}
-            <button
-              className={styles.searchBtn}
-              onClick={() => setSearchOpen(true)}
+            <button 
+              className={styles.searchBtn} 
+              onClick={() => setSearchOpen(true)} 
               aria-label="Abrir búsqueda"
             >
               <Search size={22} />
             </button>
           </div>
 
-          {logueado ? (
-            <button
-              onClick={cerrarSesion}
-              className={styles.logoutBtn}
-              style={{
-                padding: "8px 14px",
-                background: "#b80000",
-                color: "white",
-                borderRadius: "8px",
-                fontWeight: "bold"
-              }}
-            >
-              Cerrar sesión
-            </button>
-          ) : (
-            <Link href="/login" className={styles.avatar}>
-              <Image
-                src="/login.jpg"
+           <div className={styles.avatar}>
+              <Image 
+                src='/file.svg'
                 alt="Foto de perfil del usuario"
                 width={50}
                 height={50}
+                className="object-cover w-full h-full"
               />
-            </Link>
-          )}
-          {logueado && usuario?.premiun && (
-            <span className="text-yellow-500 font-bold">
-              ⭐ Usuario Premium
-            </span>
-          )}
+            </div>
         </div>
       </nav>
-
+      
       {/* 3. Renderizamos el overlay y le pasamos el estado y la función para cerrarlo */}
       <Busqueda isOpen={searchOpen} onClose={() => setSearchOpen(false)} />
     </>

@@ -1,0 +1,227 @@
+/* ======================= WRAPPER GENERAL ======================= */
+.filtroWrapper {
+  margin-bottom: 2rem;
+  background: var(--background, #f9fafb);
+  border-radius: 12px;
+  box-shadow: 0 6px 18px rgba(0,0,0,0.04);
+  padding: 1.5rem;
+  margin-top: 1rem;
+}
+
+/* ======================= HEADER (BUSQUEDA + BOTON) ======================= */
+.header {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+  margin-bottom: 1rem;
+  flex-wrap: wrap;
+}
+
+/* ======================= BUSQUEDA ======================= */
+.busquedaWrapper {
+  position: relative;
+  flex-grow: 1;
+}
+
+.busquedaInput {
+  width: 100%;
+  padding: 0.75rem 2.5rem 0.75rem 1rem;
+  font-size: 1rem;
+  border: 1px solid var(--bordes, #d1d5db);
+  border-radius: 8px;
+  background: var(--superficie, #ffffff);
+  color: var(--text, #1f2937);
+  transition: border-color 0.3s, box-shadow 0.3s;
+}
+
+.busquedaInput:focus {
+  outline: none;
+  border-color: var(--primary, #9C784A);
+  box-shadow: 0 0 0 3px rgba(var(--primary-rgb, 156,120,74), 0.12);
+}
+
+.limpiarBtn {
+  position: absolute;
+  right: 0.75rem;
+  top: 50%;
+  transform: translateY(-50%);
+  background: transparent;
+  color: var(--text-second, #6b7280);
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  font-size: 1rem;
+  transition: color 0.2s ease;
+}
+
+.limpiarBtn:hover {
+  color: var(--accent, #B26B34);
+}
+
+/* ======================= BOTON MOSTRAR / OCULTAR FILTROS ======================= */
+.toggleFiltrosBtn {
+  padding: 0.75rem 1.25rem;
+  background: var(--superficie, #ffffff);
+  color: var(--text, #1f2937);
+  border: 1px solid var(--bordes, #d1d5db);
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  transition: background 0.24s, border-color 0.24s;
+  white-space: nowrap;
+}
+
+.toggleFiltrosBtn:hover {
+  background: var(--background, #f3f4f6);
+  border-color: rgba(0,0,0,0.08);
+}
+
+.toggleIcon {
+  font-size: 0.75rem;
+  transition: transform 0.3s ease-in-out;
+}
+
+/* ======================= DESPLEGABLE DE FILTROS ======================= */
+/* Cerrado por defecto */
+.filtroContainer {
+  max-height: 0;
+  overflow: hidden;
+  opacity: 0;
+  padding-top: 0;
+  transition: max-height 0.5s ease-in-out, opacity 0.4s ease-in-out, padding 0.4s ease-in-out;
+}
+
+/* Abierto */
+.visible {
+  max-height: 800px; /* alto suficiente para todo */
+  opacity: 1;
+  padding-top: 1.5rem;
+  border-top: 1px solid var(--bordes, #e5e7eb);
+}
+
+/* ======================= CONTENIDO DE FILTROS ======================= */
+.filtrosRow {
+  display: flex;
+  gap: 2rem;
+  margin-bottom: 1.5rem;
+  flex-wrap: wrap;
+}
+
+.filtroGrupo {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  flex: 1;
+  min-width: 200px;
+}
+
+.filtroLabel {
+  font-weight: 700;
+  font-size: 0.9rem;
+  color: var(--text, #1f2937);
+}
+
+.categorias {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+
+.categoriaBtn {
+  padding: 0.5rem 1rem;
+  background: var(--superficie, white);
+  border: 1px solid var(--bordes, #d1d5db);
+  border-radius: 20px;
+  cursor: pointer;
+  transition: all 0.18s ease;
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: var(--text, #374151);
+}
+
+.categoriaBtn:hover {
+  border-color: var(--primary, #3b82f6);
+  color: var(--primary, #3b82f6);
+  background: rgba(var(--primary-rgb, 156,120,74), 0.06);
+}
+
+.active {
+  background: var(--primary, #3b82f6);
+  color: white;
+  border-color: var(--primary, #3b82f6);
+  box-shadow: 0 6px 14px rgba(var(--primary-rgb,156,120,74), 0.12);
+}
+
+.ordenSelect {
+  padding: 0.75rem 1rem;
+  font-size: 0.9rem;
+  border: 1px solid var(--bordes, #d1d5db);
+  border-radius: 8px;
+  background: var(--superficie, white);
+  color: var(--text, inherit);
+  cursor: pointer;
+  transition: border-color 0.2s;
+}
+
+.ordenSelect:focus {
+  outline: none;
+  border-color: var(--primary, #9C784A);
+}
+
+/* ======================= FILA DE ACCIONES ======================= */
+.accionesRow {
+  display: flex;
+  justify-content: flex-end;
+  gap: 1rem;
+  padding-top: 1rem;
+  border-top: 1px dashed var(--bordes, #e5e7eb);
+}
+
+.limpiarTodoBtn {
+  padding: 0.75rem 1.5rem;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: 600;
+  background: var(--superficie, #f3f4f6);
+  color: var(--text-second, #4b5563);
+  transition: background 0.16s, transform 0.08s;
+}
+
+.limpiarTodoBtn:hover {
+  background: rgba(0,0,0,0.06);
+  transform: translateY(-1px);
+}
+
+/* ======================= RESPONSIVE ======================= */
+@media (max-width: 768px) {
+  .header {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .toggleFiltrosBtn {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .filtrosRow {
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+
+  .filtroGrupo {
+    width: 100%;
+    min-width: auto;
+  }
+
+  .accionesRow {
+    flex-direction: column-reverse;
+  }
+}
