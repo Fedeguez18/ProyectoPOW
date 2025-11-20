@@ -16,7 +16,7 @@ export default function MuseoHome() {
               Un Viaje a la <span className={styles.highlight}>Historia Natural</span> de La Pampa
             </h2>
             <p className={styles.introText}>
-              ¡Bienvenido a la casa de la **Biodiversidad** y la **Historia** de la provincia de La Pampa! El Museo de Ciencias Naturales no es solo un edificio; es un archivo tridimensional vivo que resguarda el **patrimonio natural y antropológico** de nuestra región, invitándote a reflexionar sobre la profunda conexión entre la naturaleza y la cultura que nos define.
+              ¡Bienvenido a la casa de la Biodiversidad y la Historia de la provincia de La Pampa! El Museo de Ciencias Naturales no es solo un edificio; es un archivo tridimensional vivo que resguarda el patrimonio natural y antropológico de nuestra región, invitándote a reflexionar sobre la profunda conexión entre la naturaleza y la cultura que nos define.
             </p>
           </div>
 
@@ -27,7 +27,7 @@ export default function MuseoHome() {
             <div className={styles.imageWrapper}>
               {/* Placeholder: Reemplaza con una imagen histórica del museo o un elemento antiguo */}
               <Image 
-                src="/img/museo-edificio-antiguo.jpg" 
+                src="/uploads/museo-edificio-antiguo.jpg" 
                 alt="Imagen histórica del Museo de La Pampa"
                 layout="responsive"
                 width={600}
@@ -75,7 +75,7 @@ export default function MuseoHome() {
             <div className={styles.imageWrapper}>
               {/* Placeholder: Reemplaza con una imagen de una colección destacada (fósil, animal taxidermizado) */}
               <Image 
-                src="/img/museo-coleccion-fosil.jpg" 
+                src="/uploads/museo-coleccion.jpg" 
                 alt="Colección de fósiles del museo"
                 layout="responsive"
                 width={600}
