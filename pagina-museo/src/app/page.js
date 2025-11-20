@@ -15,7 +15,6 @@ export default function Home() {
         <Carrusel />
       </div>
 
-      {/* ← NUEVO: Componente de horarios */}
       <HorarioMuseo />
 
       <MapaUbicacion /> 
