@@ -15,7 +15,7 @@ export default function MuseoHome() {
               Un Viaje a la <span className={styles.highlight}>Historia Natural</span> de La Pampa
             </h2>
             <p className={styles.introText}>
-              ¡Bienvenido a la casa de la **Biodiversidad** y la **Historia** de la provincia de La Pampa! El Museo de Ciencias Naturales no es solo un edificio; es un archivo tridimensional vivo que resguarda el **patrimonio natural y antropológico** de nuestra región, invitándote a reflexionar sobre la profunda conexión entre la naturaleza y la cultura que nos define.
+              ¡Bienvenido a la casa de la Biodiversidad y la Historia de la provincia de La Pampa! El Museo de Ciencias Naturales no es solo un edificio; es un archivo tridimensional vivo que resguarda el patrimonio natural y antropológico de nuestra región, invitándote a reflexionar sobre la profunda conexión entre la naturaleza y la cultura que nos define.
             </p>
           </div>
 
