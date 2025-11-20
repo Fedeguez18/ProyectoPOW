@@ -38,8 +38,11 @@ export default function MuseoTematicas() {
                     const cat = it.categoria || 'Generales';
                     
                     // ⚡ FILTRAR categorías que empiezan con "banner-"
-                    if (cat.toLowerCase().startsWith('banner-')) {
+                    if (cat.toLowerCase().startsWith('banner-') ) {
                         return; // Saltar esta categoría
+                    }
+                    if (['carrusel', 'home-museo'].includes(cat.toLowerCase())) {
+                        return; // Saltar estas categorías
                     }
                     
                     groups[cat] = groups[cat] || [];

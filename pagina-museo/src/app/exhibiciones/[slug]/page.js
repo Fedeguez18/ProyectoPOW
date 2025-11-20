@@ -1,5 +1,5 @@
 import Image from "next/image";
-import Link from "next/link";
+import BackButton from "../../componentes/BackButton";
 import ComentarioForm from "../../componentes/ComentarioForm";
 import ComentariosList from "../../componentes/ComentariosList";
 import { getImageUrl } from '../../utils/config';
@@ -35,14 +35,14 @@ export default async function PaginaDetalleExhibicion({ params }) {
   const item = all.find((ex) => String(ex.id) === slug);
 
   // Fallback por si no se encuentra el item
-  if (!item) {
+    if (!item) {
     return (
       <main style={{ padding: '2rem', textAlign: 'center' }}>
         <h1>Exhibición no encontrada</h1>
         <p>No pudimos encontrar la exhibición que buscas.</p>
-        <Link href="/exhibiciones" style={{ color: '#0070f3', textDecoration: 'underline' }}>
-          ← Volver a Exhibiciones
-        </Link>
+        <BackButton className="aestheticBackLink aestheticBackLink--tertiary">
+          Volver a Exhibiciones
+        </BackButton>
       </main>
     );
   }
@@ -52,9 +52,9 @@ export default async function PaginaDetalleExhibicion({ params }) {
 
   return (
     <main style={{ maxWidth: '1200px', margin: '0 auto', padding: '2rem' }}>
-      <Link href="/exhibiciones" style={{ display: 'inline-block', marginBottom: '1rem', color: '#0070f3' }}>
-        ← Volver a Exhibiciones
-      </Link>
+      <BackButton className="aestheticBackLink aestheticBackLink--spaced aestheticBackLink--tertiary">
+        Volver a Exhibiciones
+      </BackButton>
       
       <article>
         <h1 style={{ fontSize: '2.5rem', marginBottom: '1rem' }}>{item.titulo}</h1>

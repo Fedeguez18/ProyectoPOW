@@ -3,7 +3,7 @@ import { useState, useEffect, useCallback } from 'react';
 import { useSearchParams } from 'next/navigation';
 import CartaExhibiciones from '../componentes/cartaExhibicion';
 import ImagenHome from '../componentes/imagenHome';
-import FiltroExhibiciones from '../componentes/FiltroExhibiciones';
+import FiltroExhibiciones from '../componentes/filtroExhibiciones';
 import styles from '../styles/museoTematicas.module.css';
 
 const API_BASE = process.env.NEXT_PUBLIC_API_BASE || 'http://localhost/ProyectoPOW/API_Proyecto';

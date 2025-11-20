@@ -130,7 +130,7 @@ export default function Carrusel() {
                   {/* Caption con animación */}
                   <div className={styles.caption} data-swiper-parallax="-100">
                     <div className={styles.captionContent}>
-                      <span className={styles.badge}>✨ Destacado</span>
+                      <span className={styles.badge}>Destacado</span>
                       <h3 className={styles.title}>{slide.title}</h3>
                       {slide.subtitle && (
                         <p className={styles.subtitle}>{slide.subtitle}</p>

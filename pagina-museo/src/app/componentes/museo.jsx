@@ -1,4 +1,3 @@
-import Image from "next/image"; 
 import Link from "next/link"; 
 import styles from '../styles/museo.module.css';
 
@@ -25,28 +24,25 @@ export default function MuseoHome() {
           {/* Bloque 1: Un Legado que Trasciende el Tiempo (Historia) */}
           <div className={styles.contentSection}>
             <div className={styles.imageWrapper}>
-              {/* Placeholder: Reemplaza con una imagen histórica del museo o un elemento antiguo */}
-              <Image 
-                src="/img/museo-edificio-antiguo.jpg" 
-                alt="Imagen histórica del Museo de La Pampa"
-                layout="responsive"
-                width={600}
-                height={400}
+              {/* Imagen exterior del museo (fachada nocturna) */}
+              <img
+                src="http://localhost/ProyectoPOW/API_Proyecto/uploads/museo-edificio-antiguo.jpg"
+                alt="Fachada exterior del Museo de La Pampa"
                 className={styles.sectionImage}
               />
               <p className={styles.caption}>Fundado en 1932 como el Museo de la Pampa.</p>
             </div>
-            
-            <div className={styles.textWrapper}>
-              <h3 className={styles.sectionTitle}>Un Legado que Trasciende el Tiempo</h3>
-              <p>Nuestra historia se remonta a **1932**, cuando fue creado inicialmente como el **Museo de la Pampa**, para luego ser inaugurado como el **Museo Regional Pampeano**. Desde sus inicios, el museo se ha dedicado a la custodia, curación, estudio y exhibición de colecciones que narran la transformación del paisaje pampeano.</p>
-              <p>A pesar de los cambios y la transferencia de algunas secciones (como Arqueología y Etnografía) a otros organismos, nuestro enfoque se ha consolidado en el estudio y difusión de la rica diversidad natural de la provincia, trabajando bajo un nuevo paradigma que busca **relacionar la naturaleza y la cultura**.</p>
-            </div>
-          </div>
-          
-          <hr className={styles.divider}/>
+                    
+                    <div className={styles.textWrapper}>
+                      <h3 className={styles.sectionTitle}>Un Legado que Trasciende el Tiempo</h3>
+                      <p>Nuestra historia se remonta a **1932**, cuando fue creado inicialmente como el **Museo de la Pampa**, para luego ser inaugurado como el **Museo Regional Pampeano**. Desde sus inicios, el museo se ha dedicado a la custodia, curación, estudio y exhibición de colecciones que narran la transformación del paisaje pampeano.</p>
+                      <p>A pesar de los cambios y la transferencia de algunas secciones (como Arqueología y Etnografía) a otros organismos, nuestro enfoque se ha consolidado en el estudio y difusión de la rica diversidad natural de la provincia, trabajando bajo un nuevo paradigma que busca **relacionar la naturaleza y la cultura**.</p>
+                    </div>
+                    </div>
+                    
+                    <hr className={styles.divider}/>
 
-          {/* Bloque 2: Las Colecciones que Hablan de Nosotros (Valor Social), con orden invertido para estética */}
+                    {/* Bloque 2: Las Colecciones que Hablan de Nosotros (Valor Social), con orden invertido para estética */}
           <div className={`${styles.contentSection} ${styles.reversed}`}>
              <div className={styles.textWrapper}>
               <h3 className={styles.sectionTitle}> Nuestras Colecciones: Un Archivo de la Tierra</h3>
@@ -73,13 +69,10 @@ export default function MuseoHome() {
             </div>
             
             <div className={styles.imageWrapper}>
-              {/* Placeholder: Reemplaza con una imagen de una colección destacada (fósil, animal taxidermizado) */}
-              <Image 
-                src="/img/museo-coleccion-fosil.jpg" 
-                alt="Colección de fósiles del museo"
-                layout="responsive"
-                width={600}
-                height={400}
+              {/* Imagen interior: sala de exhibiciones */}
+              <img
+                src="http://localhost/ProyectoPOW/API_Proyecto/uploads/museo-coleccion.jpg"
+                alt="Sala de exhibiciones del museo"
                 className={styles.sectionImage}
               />
               <p className={styles.caption}>Una valiosa colección paleontológica al servicio de la investigación.</p>

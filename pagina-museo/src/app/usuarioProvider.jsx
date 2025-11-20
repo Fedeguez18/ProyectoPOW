@@ -22,7 +22,7 @@ export default function UsuarioProvider({ children }) {
       setLogueado(!!userFirebase);
     });
 
-    return () => unsubs();
+    return () => unsub();
   }, []);
 
   // 🔹 Cargar datos de tu API PHP
